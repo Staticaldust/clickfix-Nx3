@@ -1,6 +1,17 @@
-import { DataTypes, Sequelize } from 'sequelize';
+import { DataTypes, Model, Sequelize } from 'sequelize';
 import { sequelize } from '../seqPG';
-export const User = sequelize.define(
+export type UserType = {
+  user_id: number,
+  name: string,
+  address: string,
+  mail_address: string,
+  phone_number: string,
+  password: string,
+  client: boolean,
+  createdAt: string,
+  updatedAt: string
+}
+export const User = sequelize.define<Model<UserType, UserType>>(
     'User',
     {
       user_id: {

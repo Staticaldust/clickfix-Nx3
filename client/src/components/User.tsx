@@ -1,4 +1,4 @@
-import { trpc } from "./utils/trpc";
+import { trpc } from "../utils/trpc";
 
 export function User() {
   const userId = 4;
@@ -6,6 +6,5 @@ export function User() {
     // email: ' example@gmail.com',
     id: userId,
   });
-
-  return <div>{JSON.stringify(newUser.data?.users)}</div>;
+  return <div>{JSON.stringify(newUser.data?.address)}</div>;
 }
