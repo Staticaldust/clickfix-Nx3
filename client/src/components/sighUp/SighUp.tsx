@@ -1,9 +1,11 @@
 import styles from './SighUp.module.css';
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
+import { useNavigate } from 'react-router-dom';
+import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
 /* eslint-disable-next-line */
 export interface SighUpProps {}
 
 export function SighUp(props: SighUpProps) {
+  const navigate = useNavigate();
   return (
     <div className={styles['container']}>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -21,7 +23,10 @@ export function SighUp(props: SighUpProps) {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" action="#" method="POST">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
                 Name
               </label>
               <div className="mt-2">
@@ -36,7 +41,10 @@ export function SighUp(props: SighUpProps) {
               </div>
             </div>
             <div>
-              <label htmlFor="address" className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="address"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
                 Address
               </label>
               <div className="mt-2">
@@ -51,7 +59,10 @@ export function SighUp(props: SighUpProps) {
               </div>
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
                 Email address
               </label>
               <div className="mt-2">
@@ -68,10 +79,12 @@ export function SighUp(props: SighUpProps) {
 
             <div>
               <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
                   Password
                 </label>
-                
               </div>
               <div className="mt-2">
                 <input
@@ -85,8 +98,11 @@ export function SighUp(props: SighUpProps) {
               </div>
             </div>
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
-              Phone
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Phone
               </label>
               <div className="mt-2">
                 <input
@@ -100,8 +116,11 @@ export function SighUp(props: SighUpProps) {
               </div>
             </div>
             <div>
-              <label htmlFor="client" className="block text-sm font-medium leading-6 text-gray-900">
-              Client
+              <label
+                htmlFor="client"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Client
               </label>
               <div className="mt-2">
                 <input
@@ -115,10 +134,9 @@ export function SighUp(props: SighUpProps) {
               </div>
             </div>
 
-            
-
             <div>
               <button
+                onClick={() => navigate('/login')}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
@@ -126,7 +144,6 @@ export function SighUp(props: SighUpProps) {
               </button>
             </div>
           </form>
-
         </div>
       </div>
     </div>

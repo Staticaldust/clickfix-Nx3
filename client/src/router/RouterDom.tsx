@@ -1,17 +1,28 @@
-import { Route, Routes } from "react-router-dom"
-import HomePage from "../components/home/HomePage"
-import { App } from "../App"
-import { User } from "../components/User"
-import SignUp from "../components/sighUp/SighUp"
+import { Route, Routes } from 'react-router-dom';
+import React from 'react';
+import HomePage from '../components/home/HomePage';
+import { User } from '../components/User';
+import SignUp from '../components/sighUp/SighUp';
+import Login from '../components/login/Login';
+import Cards from '../components/cards/Cards';
+import Categories from '../components/categories/Categories';
+// import Layout from '../components/layout/Layout';
+const RouterDom: React.FC = () => {
+  return (
+    <Routes>
+      <Route index element={<HomePage />} />
+      <Route path="/user" element={<User />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/cards" element={<Cards />} />
+      <Route path="/categories" element={<Categories />} />
+    </Routes>
+  );
+};
 
-const RouterDom = () => {
-    return (
-        <Routes>
-            <Route index element={<HomePage />}/>
-            <Route path="/user" element={<User />} />
-            <Route path="/signup" element={<SignUp />} />
-        </Routes>
-    )
+export default RouterDom;
+
+{
+  /* <Route path="/" element={<Layout />}>
+</Route> */
 }
-
-export default RouterDom
