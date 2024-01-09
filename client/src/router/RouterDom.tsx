@@ -6,6 +6,7 @@ import SignUp from '../components/sighUp/SighUp';
 import Login from '../components/login/Login';
 import Cards from '../components/cards/Cards';
 import Categories from '../components/categories/Categories';
+import ImageCard from '../components/imageCard/ImageCard';
 // import Layout from '../components/layout/Layout';
 const RouterDom: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const RouterDom: React.FC = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/cards" element={<Cards />} />
       <Route path="/categories" element={<Categories />} />
+      <Route path="/img" element={<ImageCard />} />
     </Routes>
   );
 };
