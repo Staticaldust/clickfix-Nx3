@@ -1,5 +1,5 @@
-import styles from './Cards.module.css';
-import Card from '../card/Card';
+import styles from '../styles.module.css';
+import ImageCard from '../imageCard/ImageCard';
 /* eslint-disable-next-line */
 export interface CardsProps {}
 
@@ -10,7 +10,7 @@ export function Cards(props: CardsProps) {
     <div className={styles['container']}>
       <div className={`${styles.container} flex`} style={{ margin: '100px' }}>
         {cards.map((index) => (
-          <Card key={index} />
+          <ImageCard key={index} />
         ))}
       </div>
     </div>
