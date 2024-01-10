@@ -61,7 +61,7 @@ const Card = () => {
                 <img
                   src={product.imageSrc}
                   alt={product.imageAlt}
-                  className="h-200 w-full object-contain object-center lg:h-full"
+                  className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                 />
               </div>
               <div className="mt-4 flex justify-between">
