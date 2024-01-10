@@ -40,10 +40,31 @@ const appRouter = router({
         users: users,
       };
     }),
-  tps: publicProcedure.input(z.object({}).nullish()).query(async () => {
-    const tps: object | null = await getTps();
-    return { tps: tps };
-  }),
+  tp: publicProcedure
+    .input(
+      z
+        .object({
+          // email:z .string().nullish(),
+          id: z.number(),
+        })
+        .nullish()
+    )
+    .query(async ({ input }) => {
+      let tp: object | object[] | null = null;
+      if (input?.id !== undefined) {
+        tp = await getTp(input.id);
+      } else {
+        tp = await getTps();
+      }
+      return {
+        tp: tp,
+      };
+    }),
+  // tps: publicProcedure.input(z.object({}).nullish()).query(async () => {
+  //   const tps: object | null = await getTps();
+  //   console.log(tps, 2);
+  //   return { tps: tps };
+  // }),
 });
 const syncDatabase = async () => {
   await sequelize.sync({ alter: true });
