@@ -14,7 +14,7 @@ export function App() {
           url: 'http://localhost:2022',
         }),
       ],
-    }),
+    })
   );
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>

@@ -6,7 +6,7 @@ import SignUp from '../components/sighUp/SighUp';
 import Login from '../components/login/Login';
 import Cards from '../components/cards/Cards';
 import Categories from '../components/categories/Categories';
-import Card from '../components/card/Card';
+import { Tps } from '../components/Tp';
 // import Layout from '../components/layout/Layout';
 const RouterDom: React.FC = () => {
   return (
@@ -17,8 +17,7 @@ const RouterDom: React.FC = () => {
       <Route path="/categories" element={<Categories />} />
       <Route path="/cards" element={<Cards />} />
       <Route path="/user" element={<User />} />
-      <Route path="/cards" element={<Cards />} />
-      <Route path="/img2" element={<Card />} />
+      {/* <Route path="/tps" element={<Tps />} /> */}
     </Routes>
   );
 };

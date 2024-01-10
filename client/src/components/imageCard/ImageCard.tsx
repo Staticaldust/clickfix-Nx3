@@ -20,6 +20,13 @@ export function ImageCard(props: ImageCardProps) {
             Flowbite?
           </p>
         </figcaption>
+        <p>tt</p>
+        <p>tt</p>
+        <p>tt</p>
+        <p>tt</p>
+        <p>tt</p>
+        <p>tt</p>
+        <p>tt</p>
       </figure>
     </div>
   );
