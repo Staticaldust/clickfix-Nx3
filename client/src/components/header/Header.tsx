@@ -48,7 +48,7 @@ export function Header(props: HeaderProps) {
                     <div className="flex flex-shrink-0 items-center">
                       <img
                         className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                        src="https://previews.123rf.com/images/sergeypykhonin/sergeypykhonin2203/sergeypykhonin220300085/184572590-repairman-with-wrench-logo-emblem-for-service-repair-funny-mechanic-technician-cartoon-character.jpg"
                         alt="Your Company"
                       />
                     </div>
@@ -154,7 +154,7 @@ export function Header(props: HeaderProps) {
 
               <Disclosure.Panel className="sm:hidden">
                 <div className="space-y-1 px-2 pb-3 pt-2">
-                  {navigation.map((item) => (
+                  {/* {navigation.map((item) => (
                     <Disclosure.Button
                       key={item.name}
                       as="a"
@@ -169,7 +169,7 @@ export function Header(props: HeaderProps) {
                     >
                       {item.name}
                     </Disclosure.Button>
-                  ))}
+                  ))} */}
                 </div>
               </Disclosure.Panel>
             </>

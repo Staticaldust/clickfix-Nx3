@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { trpc } from './utils/trpc';
 import { BrowserRouter } from 'react-router-dom';
 import RouterDom from './router/RouterDom';
+import Header from './components/header/Header';
 
 export function App() {
   const [queryClient] = useState(() => new QueryClient());
@@ -20,6 +21,7 @@ export function App() {
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
+          <Header />
           <RouterDom />
         </BrowserRouter>
       </QueryClientProvider>
