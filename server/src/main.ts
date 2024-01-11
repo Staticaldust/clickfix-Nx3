@@ -50,7 +50,7 @@ const appRouter = router({
         .nullish()
     )
     .query(async ({ input }) => {
-      let tp: object | object[] | null = null;
+      let tp: object;
       if (input?.id !== undefined) {
         tp = await getTp(input.id);
       } else {

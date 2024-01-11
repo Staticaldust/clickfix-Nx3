@@ -24,13 +24,12 @@ export const getUsers = async () => {
   console.log('All users:', JSON.stringify(users, null, 2));
 };
 export const getTps = async () => {
-  const tps = (await Tp.findAll()).map((u) => {
-    u.dataValues;
-  });
+  const tps = await Tp.findAll();
+  // .map((u) => {u.dataValues;});
   if (tps === null) {
     console.log('Not found!');
   } else {
-    console.log('All users:', JSON.stringify(tps, null, 2));
+    //console.log('All users:', JSON.stringify(tps), '😡');
     return tps;
   }
 };
