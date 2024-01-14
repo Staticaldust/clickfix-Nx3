@@ -21,13 +21,13 @@ export const createTp = async () => {
     await Tp.create({
       name: 'Test Tp',
       address: 'Test Address',
-      mail_address: 'test@tp2.com',
+      mail_address: 'test@tp7.com',
       phone_number: '555-1234',
       password: 'testpassword',
       profession: 'mechanic',
       subSpecialty: 'tiers',
       image:
-        'https://discord.com/channels/1194572186837581885/1194572187449958453',
+        'https://media.discordapp.net/attachments/1194572187449958453/1194578607000014900/plumber8.jpg',
     });
   } catch (error) {
     console.error('Error creating test tp:', error);

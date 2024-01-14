@@ -4,67 +4,46 @@ import cors from 'cors';
 import { z } from 'zod';
 import { sequelize } from './seqPG';
 import { publicProcedure, router } from './trpc';
-import { getUser, getTp, getUsers, getTps } from './crud/get';
+import { getUser, getTp, getUsers, getTps, deleteTps } from './crud/get';
 import { createUser, createTp } from './crud/create';
 import { Tp } from './models/tp';
+import { TpType } from './models/tp';
 
 const appRouter = router({
-  greeting: publicProcedure
-    .input(
-      z.object({
-        name: z.string(),
-      })
-    )
-    .query(({ input }) => {
-      const { name } = input;
-      return {
-        text: `hello ${name ?? 'world'}`,
-      };
-    }),
-  userNew: publicProcedure
-    .input(
-      z
-        .object({
-          // email:z .string().nullish(),
-          id: z.number(),
-        })
-        .nullish()
-    )
-    .query(async ({ input }) => {
-      let users: object | null = null;
-      if (input?.id !== undefined) {
-        users = await getUser(input.id);
-      }
-      return {
-        // text: `your ${input?.email }`,
-        users: users,
-      };
-    }),
   tp: publicProcedure
     .input(
       z
         .object({
-          // email:z .string().nullish(),
           id: z.number(),
         })
         .nullish()
     )
     .query(async ({ input }) => {
-      let tp: object;
-      if (input?.id !== undefined) {
-        tp = await getTp(input.id);
-      } else {
-        tp = await getTps();
-      }
+      const tp = await getTp(input.id);
       return {
         tp: tp,
       };
     }),
-  // tps: publicProcedure.input(z.object({}).nullish()).query(async () => {
-  //   const tps: object | null = await getTps();
-  //   console.log(tps, 2);
-  //   return { tps: tps };
-  // }),
+  tps: publicProcedure.query(async () => {
+    const tps = await getTps();
+    return {
+      tps: tps,
+    };
+  }),
+  deleteTp: publicProcedure
+    .input(
+      z
+        .object({
+          id: z.number(),
+        })
+        .nullish()
+    )
+    .query(async ({ input }) => {
+      const tp = await deleteTps(input.id);
+      return {
+        tp: tp,
+      };
+    }),
 });
 const syncDatabase = async () => {
   await sequelize.sync({ alter: true });
@@ -76,7 +55,7 @@ syncDatabase();
 // getUsers();
 // getUser(1);
 //createUser();
-// createTp();
+createTp();
 
 createHTTPServer({
   middleware: cors(),

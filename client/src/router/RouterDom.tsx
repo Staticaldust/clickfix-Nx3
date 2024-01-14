@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import React from 'react';
 import HomePage from '../components/home/HomePage';
-import { User } from '../components/User';
 import SignUp from '../components/sighUp/SighUp';
 import Login from '../components/login/Login';
 import Cards from '../components/cards/Cards';
@@ -16,7 +15,6 @@ const RouterDom: React.FC = () => {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/categories" element={<Categories />} />
       <Route path="/cards" element={<Cards />} />
-      <Route path="/user" element={<User />} />
       <Route path="/tp" element={<Tp />} />
     </Routes>
   );
