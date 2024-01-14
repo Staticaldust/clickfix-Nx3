@@ -1,11 +1,32 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import { trpc } from '../../utils/trpc';
+import { useState } from 'react';
 
 export const Login = () => {
-  const usersQuery = trpc.users.useQuery();
-  const users = usersQuery.data?.users || [];
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [loginMessage, setLoginMessage] = useState<string>('');
   const navigate = useNavigate();
+  const authQuery = trpc.userLogin.useQuery({
+    email: email,
+    password: password,
+  });
+
+  const handleSignIn = () => {
+    console.log(email, password);
+    if (authQuery.data) {
+      const doesExist = authQuery.data.doesExist;
+
+      if (doesExist === true) {
+        setLoginMessage('Login successful');
+        navigate('/categories');
+      } else {
+        setLoginMessage('Invalid email or password');
+      }
+    }
+  };
+
   return (
     <div className={styles['container']}>
       <div>
@@ -31,7 +52,11 @@ export const Login = () => {
           </div>
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" method="POST">
+            <form
+              className="space-y-6"
+              method="POST"
+              onSubmit={(e) => e.preventDefault()}
+            >
               <div>
                 <label
                   htmlFor="email"
@@ -46,6 +71,8 @@ export const Login = () => {
                     type="email"
                     autoComplete="email"
                     required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -75,6 +102,8 @@ export const Login = () => {
                     type="password"
                     autoComplete="current-password"
                     required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -82,12 +111,32 @@ export const Login = () => {
 
               <div>
                 <div
-                  onClick={() => navigate('/categories')}
+                  onClick={handleSignIn}
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Sign in
                 </div>
               </div>
+              {loginMessage && (
+                <div
+                  className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                  role="alert"
+                >
+                  <strong className="font-bold">{loginMessage}</strong>
+                  <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
+                    <svg
+                      className="fill-current h-6 w-6 text-red-500"
+                      role="button"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      onClick={() => setLoginMessage('')}
+                    >
+                      <title>Close</title>
+                      <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                    </svg>
+                  </span>
+                </div>
+              )}
             </form>
 
             <p className="mt-10 text-center text-sm text-gray-500">

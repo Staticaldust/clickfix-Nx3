@@ -4,7 +4,13 @@ import cors from 'cors';
 import { z } from 'zod';
 import { sequelize } from './seqPG';
 import { publicProcedure, router } from './trpc';
-import { getUser, getTp, getUsers, getTps, deleteTps } from './crud/get';
+import {
+  getUser,
+  getTp,
+  getUsers,
+  getTps,
+  userAuthentication,
+} from './crud/get';
 
 const appRouter = router({
   user: publicProcedure
@@ -47,20 +53,35 @@ const appRouter = router({
       tps: tps,
     };
   }),
-  deleteTp: publicProcedure
+  userLogin: publicProcedure
     .input(
       z
         .object({
-          id: z.number(),
+          email: z.string(),
+          password: z.string(),
         })
         .nullish()
     )
     .query(async ({ input }) => {
-      const tp = await deleteTps(input.id);
+      const doesExist = await userAuthentication(input.email, input.password);
       return {
-        tp: tp,
+        doesExist: doesExist,
       };
     }),
+  // deleteTp: publicProcedure
+  //   .input(
+  //     z
+  //       .object({
+  //         id: z.number(),
+  //       })
+  //       .nullish()
+  //   )
+  //   .query(async ({ input }) => {
+  //     const tp = await deleteTps(input.id);
+  //     return {
+  //       tp: tp,
+  //     };
+  //   }),
 });
 const syncDatabase = async () => {
   await sequelize.sync({ alter: true });

@@ -36,18 +36,27 @@ export const getTps = async () => {
   }
 };
 
-export const deleteTps = async (id: number) => {
-  const tps = await Tp.destroy({
-    where: {
-      tp_id: id,
-    },
-  });
-  // .map((i) => i.dataValues);
-  // .map((u) => {u.dataValues;});
-  if (tps === null) {
-    console.log('Not found!');
+export const userAuthentication = async (email: string, password: string) => {
+  let doesExist: boolean;
+  const user = await User.findOne({ where: { mail_address: email } });
+  if (user && user.dataValues.password === password) {
+    doesExist = true;
   } else {
-    //console.log('All users:', JSON.stringify(tps), '😡');
-    return Boolean(tps);
+    doesExist = false;
   }
+  return doesExist;
 };
+
+// export const deleteTps = async (id: number) => {
+//   const tps = await Tp.destroy({
+//     where: {
+//       tp_id: id,
+//     },
+//   });
+
+//   if (tps === null) {
+//     console.log('Not found!');
+//   } else {
+//     return Boolean(tps);
+//   }
+// };
