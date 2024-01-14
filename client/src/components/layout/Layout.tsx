@@ -3,9 +3,8 @@ import Header from '../header/Header';
 import { Outlet } from 'react-router-dom';
 
 /* eslint-disable-next-line */
-export interface LayoutProps {}
 
-export function Layout(props: LayoutProps) {
+export function Layout() {
   return (
     <div className={styles['container']}>
       <Header />

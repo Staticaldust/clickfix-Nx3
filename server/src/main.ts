@@ -5,11 +5,28 @@ import { z } from 'zod';
 import { sequelize } from './seqPG';
 import { publicProcedure, router } from './trpc';
 import { getUser, getTp, getUsers, getTps, deleteTps } from './crud/get';
-import { createUser, createTp } from './crud/create';
-import { Tp } from './models/tp';
-import { TpType } from './models/tp';
 
 const appRouter = router({
+  user: publicProcedure
+    .input(
+      z
+        .object({
+          id: z.number(),
+        })
+        .nullish()
+    )
+    .query(async ({ input }) => {
+      const user = await getUser(input.id);
+      return {
+        user: user,
+      };
+    }),
+  users: publicProcedure.query(async () => {
+    const users = await getUsers();
+    return {
+      users: users,
+    };
+  }),
   tp: publicProcedure
     .input(
       z
@@ -55,7 +72,7 @@ syncDatabase();
 // getUsers();
 // getUser(1);
 //createUser();
-createTp();
+// createTp();
 
 createHTTPServer({
   middleware: cors(),

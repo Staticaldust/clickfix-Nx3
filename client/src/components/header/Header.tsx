@@ -2,7 +2,6 @@ import styles from './Header.module.css';
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Outlet } from 'react-router-dom';
 
 const navigation = [
   { name: 'Dashboard', href: '/', current: true },
@@ -14,10 +13,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-/* eslint-disable-next-line */
-export interface HeaderProps {}
-
-export function Header(props: HeaderProps) {
+export function Header() {
   return (
     <>
       <div className={styles['container']}>
@@ -154,7 +150,7 @@ export function Header(props: HeaderProps) {
 
               <Disclosure.Panel className="sm:hidden">
                 <div className="space-y-1 px-2 pb-3 pt-2">
-                  {/* {navigation.map((item) => (
+                  {navigation.map((item) => (
                     <Disclosure.Button
                       key={item.name}
                       as="a"
@@ -169,14 +165,13 @@ export function Header(props: HeaderProps) {
                     >
                       {item.name}
                     </Disclosure.Button>
-                  ))} */}
+                  ))}
                 </div>
               </Disclosure.Panel>
             </>
           )}
         </Disclosure>
       </div>
-      <Outlet />
     </>
   );
 }

@@ -1,6 +1,4 @@
-import styles from '../styles.module.css';
 import { trpc } from '../../utils/trpc';
-import { TpType } from 'server/src/models/tp';
 export const Cards = () => {
   const tpsQuery = trpc.tps.useQuery();
   const tps = tpsQuery.data?.tps || [];
@@ -40,7 +38,10 @@ export const Cards = () => {
     <div className="container mx-auto my-8 px-4">
       <div className="flex flex-wrap -mx-4">
         {tps.map((tp) => (
-          <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 mb-8">
+          <div
+            key={tp.tp_id}
+            className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 mb-8"
+          >
             <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <a href="#">
                 <img className="rounded-t-lg" src={tp.image} alt="" />

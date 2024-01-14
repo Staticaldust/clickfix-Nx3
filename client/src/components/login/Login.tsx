@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
+import { trpc } from '../../utils/trpc';
 
 /* eslint-disable-next-line */
-export interface LoginProps {}
 
-export function Login(props: LoginProps) {
+export function Login() {
+  const usersQuery = trpc.users.useQuery();
+  const users = usersQuery.data?.users || [];
   const navigate = useNavigate();
   return (
     <div className={styles['container']}>
@@ -21,7 +23,7 @@ export function Login(props: LoginProps) {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" method="POST">
             <div>
               <label
                 htmlFor="email"
@@ -71,13 +73,12 @@ export function Login(props: LoginProps) {
             </div>
 
             <div>
-              <button
+              <div
                 onClick={() => navigate('/categories')}
-                type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign in
-              </button>
+              </div>
             </div>
           </form>
 
