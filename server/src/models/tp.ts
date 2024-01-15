@@ -10,6 +10,10 @@ export type TpType = {
   profession: string;
   subSpecialty: string;
   image: string;
+  Experience: string;
+  rating: number;
+  about: string;
+  available: boolean;
   createdAt: string;
   updatedAt: string;
 };
@@ -51,8 +55,25 @@ export const Tp = sequelize.define<Model<TpType, TpType>>(
       type: DataTypes.STRING,
       allowNull: false,
     },
+
     image: {
       type: DataTypes.STRING,
+      allowNull: false,
+    },
+    Experience: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    rating: {
+      type: DataTypes.NUMBER,
+      allowNull: false,
+    },
+    about: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    available: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
     createdAt: {

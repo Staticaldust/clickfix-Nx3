@@ -11,6 +11,7 @@ import {
   getTps,
   userAuthentication,
 } from './crud/get';
+import { createTp, createUser } from './crud/create';
 
 const appRouter = router({
   user: publicProcedure
@@ -84,15 +85,19 @@ const appRouter = router({
   //   }),
 });
 const syncDatabase = async () => {
-  await sequelize.sync({ alter: true });
-  console.log('🍟The table for the User model was just (re)created!');
+  try {
+    await sequelize.sync();
+    console.log('Database synchronized');
+  } catch (error) {
+    console.error('Error synchronizing database:', error);
+  }
 };
 
 syncDatabase();
 
 // getUsers();
 // getUser(1);
-//createUser();
+// createUser();
 // createTp();
 
 createHTTPServer({
@@ -103,4 +108,6 @@ createHTTPServer({
     return {};
   },
 }).listen(2022);
+console.log('hi');
+
 export type AppRouter = typeof appRouter;

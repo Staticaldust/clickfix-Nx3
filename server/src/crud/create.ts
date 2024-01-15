@@ -6,10 +6,12 @@ export const createUser = async () => {
     await User.create({
       name: 'Test User',
       address: 'Test Address',
-      mail_address: 'test@example17.com',
+      mail_address: 'test@example14.com',
       phone_number: '555-1234',
       password: 'testpassword',
-      client: true,
+      image:
+        'https://media.discordapp.net/attachments/1194572187449958453/1196397224918265886/images.png',
+      history: [],
     });
   } catch (error) {
     console.error('Error creating test user:', error);
@@ -21,13 +23,17 @@ export const createTp = async () => {
     await Tp.create({
       name: 'Test Tp',
       address: 'Test Address',
-      mail_address: 'test@tp7.com',
+      mail_address: 'test@example11.com',
       phone_number: '555-1234',
       password: 'testpassword',
       profession: 'mechanic',
       subSpecialty: 'tiers',
       image:
         'https://media.discordapp.net/attachments/1194572187449958453/1194578607000014900/plumber8.jpg',
+      Experience: '3',
+      rating: 4,
+      about: 'some description...',
+      available: true,
     });
   } catch (error) {
     console.error('Error creating test tp:', error);

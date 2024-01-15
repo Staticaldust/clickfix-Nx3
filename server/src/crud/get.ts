@@ -6,6 +6,8 @@ export const getUser = async (id: number) => {
   if (user === null) {
     console.log('Not found!');
   } else {
+    console.log(user);
+
     return user;
   }
 };

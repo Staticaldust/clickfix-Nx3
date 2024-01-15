@@ -1,25 +1,25 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "tesla300",
-    "database": "click-fix",
-    "host": "localhost",
+    "username": "ukdjbauc",
+    "password": "vuYZopCxLMDKgGlnbvaJ0TuY8psi08yB",
+    "database": "ukdjbauc",
+    "host": "castor.db.elephantsql.com",
     "port": 5432,
     "dialect": "postgres"
   },
   "test": {
-    "username": "postgres",
-    "password": "tesla300",
-    "database": "click-fix",
-    "host": "localhost",
+    "username": "ukdjbauc",
+    "password": "vuYZopCxLMDKgGlnbvaJ0TuY8psi08yB",
+    "database": "ukdjbauc",
+    "host": "castor.db.elephantsql.com",
     "port": 5432,
     "dialect": "postgres"
   },
   "production": {
-    "username": "postgres",
-    "password": "tesla300",
-    "database": "click-fix",
-    "host": "localhost",
+    "username": "ukdjbauc",
+    "password": "vuYZopCxLMDKgGlnbvaJ0TuY8psi08yB",
+    "database": "ukdjbauc",
+    "host": "castor.db.elephantsql.com",
     "port": 5432,
     "dialect": "postgres"
   }
