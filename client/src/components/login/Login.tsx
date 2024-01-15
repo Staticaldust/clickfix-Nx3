@@ -1,40 +1,24 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import { trpc } from '../../utils/trpc';
-import { useEffect, useState } from 'react';
-import { UseTRPCQueryResult } from '@trpc/react';
-import { TRPCError } from '@trpc/server';
-
-const [authQuery, setAuthQuery] = useState<UseTRPCQueryResult<
-  { doesExist: boolean },
-  TRPCError
-> | null>(null);
+import { useState } from 'react';
 
 export const Login = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  interface AuthQuery {
-    doesExist: boolean;
-  }
-
   const [loginMessage, setLoginMessage] = useState<string>('');
   const [loading, setloading] = useState<string>('');
   const navigate = useNavigate();
-  useEffect(() => {
-    const query = trpc.userLogin.useQuery({
-      email,
-      password,
-    });
-
-    setAuthQuery(query);
-  }, []);
+  const authQuery = trpc.userLogin.useQuery({
+    email: email,
+    password: password,
+  });
 
   const handleSignIn = async () => {
-    setloading('load');
-
     try {
-      if (authQuery?.doesExist) {
-        const doesExist = authQuery.doesExist;
+      setloading('load');
+      if (authQuery.data) {
+        const doesExist = authQuery.data.doesExist;
 
         if (doesExist === true) {
           setLoginMessage('Login successful');
