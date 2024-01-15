@@ -1,36 +1,40 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import { trpc } from '../../utils/trpc';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { UseTRPCQueryResult } from '@trpc/react';
+import { TRPCError } from '@trpc/server';
+
+const [authQuery, setAuthQuery] = useState<UseTRPCQueryResult<
+  { doesExist: boolean },
+  TRPCError
+> | null>(null);
 
 export const Login = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  interface AuthQuery {
+    doesExist: boolean;
+  }
+
   const [loginMessage, setLoginMessage] = useState<string>('');
   const [loading, setloading] = useState<string>('');
   const navigate = useNavigate();
-  const auth = () => {
-    const authQuery = trpc.userLogin.useQuery({
-      email: email,
-      password: password,
+  useEffect(() => {
+    const query = trpc.userLogin.useQuery({
+      email,
+      password,
     });
-    if (authQuery.data) {
-      const doesExist = authQuery.data.doesExist;
-      return doesExist;
-    }
-  };
+
+    setAuthQuery(query);
+  }, []);
+
   const handleSignIn = async () => {
     setloading('load');
-    console.log(email, password);
 
     try {
-      const authQuery = await trpc.userLogin.useQuery({
-        email: email,
-        password: password,
-      });
-
-      if (authQuery.data) {
-        const doesExist = authQuery.data.doesExist;
+      if (authQuery?.doesExist) {
+        const doesExist = authQuery.doesExist;
 
         if (doesExist === true) {
           setLoginMessage('Login successful');
@@ -46,6 +50,7 @@ export const Login = () => {
 
     setloading('');
   };
+
   return (
     <div className={styles['container']}>
       <div>
