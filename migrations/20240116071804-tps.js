@@ -48,7 +48,7 @@ module.exports = {
         allowNull: false,
       },
       rating: {
-        type: Sequelize.INTEGER, // Use INTEGER instead of NUMBER
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       about: {

@@ -9,26 +9,16 @@ export const Login = () => {
   const [loginMessage, setLoginMessage] = useState<string>('');
   const [loading, setloading] = useState<string>('');
   const navigate = useNavigate();
-  const auth = () => {
-    const authQuery = trpc.userLogin.useQuery({
-      email: email,
-      password: password,
-    });
-    if (authQuery.data) {
-      const doesExist = authQuery.data.doesExist;
-      return doesExist;
-    }
-  };
+  const authQuery = trpc.userLogin.useQuery({
+    email: email,
+    password: password,
+  });
+
   const handleSignIn = async () => {
     setloading('load');
     console.log(email, password);
 
     try {
-      const authQuery = await trpc.userLogin.useQuery({
-        email: email,
-        password: password,
-      });
-
       if (authQuery.data) {
         const doesExist = authQuery.data.doesExist;
 
