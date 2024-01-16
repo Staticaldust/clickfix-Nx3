@@ -6,8 +6,9 @@ import { useState } from 'react';
 export const Login = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+
   const [loginMessage, setLoginMessage] = useState<string>('');
-  const [loading, setloading] = useState<string>('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const authQuery = trpc.userLogin.useQuery({
     email: email,
@@ -15,31 +16,36 @@ export const Login = () => {
   });
 
   const handleSignIn = async () => {
-    console.log(1);
-    if (authQuery.status !== 'success') {
-      setloading('load');
+    if (loading) {
+      // Do nothing if already in the loading state
+      return;
     }
 
+    setLoading(true);
     try {
-      if (authQuery.data) {
-        const doesExist = authQuery.data.doesExist;
-        console.log(3);
-        if (doesExist === true) {
-          console.log(4);
-          setLoginMessage('Login successful');
-          navigate('/categories');
-        } else {
-          console.log(5);
-          setLoginMessage('Invalid email or password');
-        }
+      // Wait for the query to complete
+      await authQuery;
+
+      if (authQuery.isLoading) {
+        // If still loading, wait and check again
+        setTimeout(() => handleSignIn(), 200);
+        return;
+      }
+
+      if (authQuery.data && authQuery.data.doesExist) {
+        setLoginMessage('Login successful');
+        navigate('/categories');
+      } else {
+        setLoginMessage('Invalid email or password');
       }
     } catch (error) {
       console.error('Error during authentication:', error);
       setLoginMessage('An error occurred during login.');
+    } finally {
+      setLoading(false);
     }
-
-    setloading('');
   };
+
   return (
     <div className={styles['container']}>
       <div>
@@ -124,10 +130,15 @@ export const Login = () => {
 
               <div>
                 <div
-                  onClick={handleSignIn}
-                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  onClick={() => {
+                    handleSignIn();
+                  }}
+                  className={`flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
+                    loading ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
+                  style={{ pointerEvents: loading ? 'none' : 'auto' }}
                 >
-                  Sign in
+                  {loading ? 'Signing in...' : 'Sign in'}
                 </div>
               </div>
               {loginMessage && (
@@ -142,7 +153,9 @@ export const Login = () => {
                       role="button"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 20 20"
-                      onClick={() => setLoginMessage('')}
+                      onClick={() => {
+                        setLoginMessage('');
+                      }}
                     >
                       <title>Close</title>
                       <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
