@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import { trpc } from '../../utils/trpc';
+import { useMutation } from '@apollo/client';
+import { LOGIN_MUTATION } from '../../utils/postgraphile';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -9,16 +11,26 @@ const Login = () => {
   const [loginMessage, setLoginMessage] = useState('');
   const [load, setLoad] = useState(false);
   const navigate = useNavigate();
-  const authQuery = trpc.userLogin.query;
+  // const authQuery = trpc.userLogin.query;
+  const [loginFunction, { data, loading, error }] = useMutation(LOGIN_MUTATION);
 
   const handleSignIn = async () => {
-    const { doesExist } = await authQuery({ email, password });
-    if (doesExist) {
-      localStorage.setItem('doesExist', 'true');
+    await loginFunction({
+      variables: {
+        input: {
+          email,
+          password,
+        },
+      },
+    });
+    if (data) {
+      localStorage.setItem('TOKEN', data.login.loginResponse.jwtToken);
+      console.log(data);
+
       navigate('/categories');
     }
 
-    if (load) {
+    if (loading) {
       // Do nothing if already in the loading state
 
       return;
@@ -27,17 +39,6 @@ const Login = () => {
     setLoad(true);
 
     try {
-      // if (authQuery.isLoading) {
-      //   // If still loading, wait and check again
-      //   setTimeout(() => handleSignIn(), 200);
-      //   return;
-      // }
-      // if (authQuery.data && authQuery.data.doesExist) {
-      //   setLoginMessage('Login successful');
-      //   navigate('/categories');
-      // } else {
-      //   setLoginMessage('Invalid email or password');
-      // }
     } catch (error) {
       console.error('Error during authentication:', error);
       setLoginMessage('An error occurred during login.');
@@ -45,33 +46,6 @@ const Login = () => {
       setLoad(false);
     }
   };
-  //   // const Pgl = () => {
-  //   //   const { loading, error, data } = useQuery(
-  //   //     gql`
-  //   //       query {
-  //   //         userByUserId(userId: 2) {
-  //   //           userId
-  //   //           name
-  //   //           mailAddress
-  //   //         }
-  //   //       }
-  //   //     `
-  //   //   );
-
-  //   //   if (loading) return <p>Loading...</p>;
-
-  //   //   if (error) {
-  //   //     console.error('GraphQL Error:', error);
-  //   //     return <p>Error: {error.message}</p>;
-  //   //   }
-  //   //   console.log(data);
-
-  //   //   return (
-  //   //     <div>
-  //   //       <div>{JSON.stringify(data)}</div>
-  //   //     </div>
-  //   //   );
-  //   // };
 
   // if (localStorage.getItem('doesExist') === 'true') {
   //   return <Navigate replace to={'/categories'} />;

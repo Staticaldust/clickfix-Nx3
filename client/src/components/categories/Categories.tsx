@@ -35,7 +35,7 @@ const Card = () => {
     },
   ];
 
-  if (localStorage.getItem('doesExist') !== 'true') {
+  if (!localStorage.getItem('TOKEN')) {
     return <Navigate replace to={'/login'} />;
   }
 
