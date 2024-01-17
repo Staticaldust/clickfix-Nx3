@@ -1,0 +1,67 @@
+{
+  "name": "pg-server",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "pg-server/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/pg-server",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "pg-server/src/main.ts",
+        "tsConfig": "pg-server/tsconfig.app.json",
+        "assets": ["pg-server/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "pg-server:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "pg-server:build:development"
+        },
+        "production": {
+          "buildTarget": "pg-server:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "pg-server/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

@@ -4,25 +4,32 @@ import { useState } from 'react';
 import { trpc } from './utils/trpc';
 import { BrowserRouter } from 'react-router-dom';
 import RouterDom from './router/RouterDom';
+import React from 'react';
+import { ApolloProvider } from '@apollo/client';
+import { Pgl } from './components/Pgraphile';
+import { client } from './utils/postgraphile';
 
 export function App() {
   const [queryClient] = useState(() => new QueryClient());
-  const [trpcClient] = useState(() =>
-    trpc.createClient({
-      links: [
-        httpBatchLink({
-          url: 'http://localhost:2022',
-        }),
-      ],
-    })
-  );
+  // const [trpcClient] = useState(() =>
+  //   trpc.createClient({
+  //     links: [
+  //       httpBatchLink({
+  //         url: 'http://localhost:2022',
+  //       }),
+  //     ],
+  //   })
+  // );
+  console.log('log from app component', localStorage.getItem('doesExist'));
+
   return (
-    <trpc.Provider client={trpcClient} queryClient={queryClient}>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <RouterDom />
-        </BrowserRouter>
-      </QueryClientProvider>
-    </trpc.Provider>
+    <ApolloProvider client={client}>
+      {/* <QueryClientProvider client={queryClient}>  */}
+      <BrowserRouter>
+        <RouterDom />
+      </BrowserRouter>
+
+      {/* </QueryClientProvider> */}
+    </ApolloProvider>
   );
 }

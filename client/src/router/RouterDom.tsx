@@ -7,18 +7,10 @@ import Cards from '../components/cards/Cards';
 import Categories from '../components/categories/Categories';
 import { Tp } from '../components/Tp';
 import Layout from '../components/layout/Layout';
+import { Pgl } from '../components/Pgraphile';
 
 const RouterDom: React.FC = () => {
   return (
-    // <Routes>
-    //   <Route index element={<HomePage />} />
-    //   <Route path="/layout" element={<Layout />} />
-    //   <Route path="/login" element={<Login />} />
-    //   <Route path="/signup" element={<SignUp />} />
-    //   <Route path="/categories" element={<Categories />} />
-    //   <Route path="/cards" element={<Cards />} />
-    //   <Route path="/tp" element={<Tp />} />
-    // </Routes>
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
@@ -27,6 +19,7 @@ const RouterDom: React.FC = () => {
         <Route path="/categories" element={<Categories />} />
         <Route path="/cards" element={<Cards />} />
         <Route path="/tp" element={<Tp />} />
+        <Route path="/pgl" element={<Pgl />} />
       </Route>
     </Routes>
   );

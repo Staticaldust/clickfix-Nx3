@@ -1,51 +1,81 @@
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import { trpc } from '../../utils/trpc';
-import { useState } from 'react';
 
-export const Login = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-
-  const [loginMessage, setLoginMessage] = useState<string>('');
-  const [loading, setLoading] = useState(false);
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginMessage, setLoginMessage] = useState('');
+  const [load, setLoad] = useState(false);
   const navigate = useNavigate();
-  const authQuery = trpc.userLogin.useQuery({
-    email: email,
-    password: password,
-  });
+  const authQuery = trpc.userLogin.query;
 
   const handleSignIn = async () => {
-    if (loading) {
+    const { doesExist } = await authQuery({ email, password });
+    if (doesExist) {
+      localStorage.setItem('doesExist', 'true');
+      navigate('/categories');
+    }
+
+    if (load) {
       // Do nothing if already in the loading state
+
       return;
     }
 
-    setLoading(true);
+    setLoad(true);
+
     try {
-      // Wait for the query to complete
-      await authQuery;
-
-      if (authQuery.isLoading) {
-        // If still loading, wait and check again
-        setTimeout(() => handleSignIn(), 200);
-        return;
-      }
-
-      if (authQuery.data && authQuery.data.doesExist) {
-        setLoginMessage('Login successful');
-        navigate('/categories');
-      } else {
-        setLoginMessage('Invalid email or password');
-      }
+      // if (authQuery.isLoading) {
+      //   // If still loading, wait and check again
+      //   setTimeout(() => handleSignIn(), 200);
+      //   return;
+      // }
+      // if (authQuery.data && authQuery.data.doesExist) {
+      //   setLoginMessage('Login successful');
+      //   navigate('/categories');
+      // } else {
+      //   setLoginMessage('Invalid email or password');
+      // }
     } catch (error) {
       console.error('Error during authentication:', error);
       setLoginMessage('An error occurred during login.');
     } finally {
-      setLoading(false);
+      setLoad(false);
     }
   };
+  //   // const Pgl = () => {
+  //   //   const { loading, error, data } = useQuery(
+  //   //     gql`
+  //   //       query {
+  //   //         userByUserId(userId: 2) {
+  //   //           userId
+  //   //           name
+  //   //           mailAddress
+  //   //         }
+  //   //       }
+  //   //     `
+  //   //   );
 
+  //   //   if (loading) return <p>Loading...</p>;
+
+  //   //   if (error) {
+  //   //     console.error('GraphQL Error:', error);
+  //   //     return <p>Error: {error.message}</p>;
+  //   //   }
+  //   //   console.log(data);
+
+  //   //   return (
+  //   //     <div>
+  //   //       <div>{JSON.stringify(data)}</div>
+  //   //     </div>
+  //   //   );
+  //   // };
+
+  // if (localStorage.getItem('doesExist') === 'true') {
+  //   return <Navigate replace to={'/categories'} />;
+  // }
   return (
     <div className={styles['container']}>
       <div>
@@ -96,7 +126,6 @@ export const Login = () => {
                   />
                 </div>
               </div>
-
               <div>
                 <div className="flex items-center justify-between">
                   <label
@@ -127,18 +156,19 @@ export const Login = () => {
                   />
                 </div>
               </div>
-
               <div>
                 <div
                   onClick={() => {
+                    setLoad(true);
+
                     handleSignIn();
                   }}
                   className={`flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
-                    loading ? 'opacity-50 cursor-not-allowed' : ''
+                    load ? 'opacity-50 cursor-not-allowed' : ''
                   }`}
-                  style={{ pointerEvents: loading ? 'none' : 'auto' }}
+                  style={{ pointerEvents: load ? 'none' : 'auto' }}
                 >
-                  {loading ? 'Signing in...' : 'Sign in'}
+                  {load ? 'Signing in...' : 'Sign in'}
                 </div>
               </div>
               {loginMessage && (
@@ -162,8 +192,30 @@ export const Login = () => {
                     </svg>
                   </span>
                 </div>
-              )}
-              {loading && (
+              )}{' '}
+              {/* {g && (
+                <div
+                  className="bg-purple-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative"
+                  role="alert"
+                >
+                  <strong className="font-bold">{g}</strong>
+                  <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
+                    <svg
+                      className="fill-current h-6 w-6 text-blue-500"
+                      role="button"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      onClick={() => {
+                        setG('');
+                      }}
+                    >
+                      <title>Close</title>
+                      <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                    </svg>
+                  </span>
+                </div>
+              )} */}
+              {load && (
                 <div className="grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
                   <svg
                     className="w-16 h-16 animate-spin text-gray-900/50"

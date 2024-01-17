@@ -11,7 +11,6 @@ import {
   getTps,
   userAuthentication,
 } from './crud/get';
-import { createTp, createUser } from './crud/create';
 
 const appRouter = router({
   user: publicProcedure
@@ -64,7 +63,9 @@ const appRouter = router({
         .nullish()
     )
     .query(async ({ input }) => {
+      console.log(`Attempting user login for email: ${input.email}`);
       const doesExist = await userAuthentication(input.email, input.password);
+      console.log('User login result:', doesExist);
       return {
         doesExist: doesExist,
       };
@@ -86,10 +87,12 @@ const appRouter = router({
 });
 const syncDatabase = async () => {
   try {
+    console.log('Attempting to synchronize database...');
     await sequelize.sync();
     console.log('Database synchronized');
   } catch (error) {
     console.error('Error synchronizing database:', error);
+    console.error('Error stack trace:', error.stack);
   }
 };
 
@@ -104,10 +107,10 @@ createHTTPServer({
   middleware: cors(),
   router: appRouter,
   createContext() {
-    console.log('context 3');
+    console.log('HTTP Server context created');
     return {};
   },
 }).listen(2022);
-console.log('hi');
+console.log('HTTP Server listening on port 2022');
 
 export type AppRouter = typeof appRouter;

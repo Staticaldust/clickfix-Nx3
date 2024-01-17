@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Card = () => {
   const navigate = useNavigate();
@@ -34,6 +34,10 @@ const Card = () => {
       color: '',
     },
   ];
+
+  if (localStorage.getItem('doesExist') !== 'true') {
+    return <Navigate replace to={'/login'} />;
+  }
 
   return (
     <div className="relative isolate px-6 pt-14 lg:px-8">

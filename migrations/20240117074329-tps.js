@@ -48,7 +48,7 @@ module.exports = {
         allowNull: false,
       },
       rating: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER, // Use INTEGER instead of NUMBER
         allowNull: false,
       },
       about: {
@@ -71,6 +71,7 @@ module.exports = {
       },
     });
 
+    // Insert demo Tp users
     const demoTpUsers = [
       {
         name: 'Tp1',
@@ -78,7 +79,7 @@ module.exports = {
         mail_address: 'tp1@example.com',
         phone_number: '1234567890',
         password: 'tppassword1',
-        profession: 'Plumber',
+        profession: 'Doctor',
         subSpecialty: 'Cardiologist',
         image:
           'https://media.discordapp.net/attachments/1194572187449958453/1194578607000014900/plumber8.jpg',
@@ -91,86 +92,63 @@ module.exports = {
         name: 'Tp2',
         address: 'TpAddress2',
         mail_address: 'tp2@example.com',
-        phone_number: '2345678901',
+        phone_number: '1234567891',
         password: 'tppassword2',
-        profession: 'Plumber',
-        subSpecialty: 'Orthopedic Surgeon',
+        profession: 'Doctor',
+        subSpecialty: 'Cardiologist',
         image:
           'https://media.discordapp.net/attachments/1194572187449958453/1194578607000014900/plumber8.jpg',
-        Experience: '8 years',
-        rating: 5,
-        about: 'Skilled Orthopedic Surgeon',
+        Experience: '5 years',
+        rating: 4,
+        about: 'Experienced Cardiologist',
         available: true,
       },
       {
         name: 'Tp3',
         address: 'TpAddress3',
         mail_address: 'tp3@example.com',
-        phone_number: '3456789012',
+        phone_number: '1234567892',
         password: 'tppassword3',
-        profession: 'Plumber',
-        subSpecialty: 'Pediatric Nurse',
+        profession: 'Doctor',
+        subSpecialty: 'Cardiologist',
         image:
           'https://media.discordapp.net/attachments/1194572187449958453/1194578607000014900/plumber8.jpg',
-        Experience: '7 years',
+        Experience: '5 years',
         rating: 4,
-        about: 'Compassionate Pediatric Nurse',
+        about: 'Experienced Cardiologist',
         available: true,
       },
       {
         name: 'Tp4',
         address: 'TpAddress4',
         mail_address: 'tp4@example.com',
-        phone_number: '4567890123',
+        phone_number: '1234567893',
         password: 'tppassword4',
-        profession: 'Plumber',
-        subSpecialty: 'Dermatologist',
-        image:
-          'https://media.discordapp.net/attachments/1194572187449958453/1194578607000014900/plumber8.jpg',
-        Experience: '6 years',
-        rating: 4,
-        about: 'Specialized Dermatologist',
-        available: true,
-      },
-      {
-        name: 'Tp5',
-        address: 'TpAddress5',
-        mail_address: 'tp5@example.com',
-        phone_number: '5678901234',
-        password: 'tppassword5',
-        profession: 'Plumber',
-        subSpecialty: 'Physical Therapist',
-        image:
-          'https://media.discordapp.net/attachments/1194572187449958453/1194578607000014900/plumber8.jpg',
-        Experience: '9 years',
-        rating: 5,
-        about: 'Expert Physical Therapist',
-        available: true,
-      },
-      {
-        name: 'Tp6',
-        address: 'TpAddress6',
-        mail_address: 'tp6@example.com',
-        phone_number: '6789012345',
-        password: 'tppassword6',
-        profession: 'Plumber',
-        subSpecialty: 'Emergency Nurse',
+        profession: 'Doctor',
+        subSpecialty: 'Cardiologist',
         image:
           'https://media.discordapp.net/attachments/1194572187449958453/1194578607000014900/plumber8.jpg',
         Experience: '5 years',
         rating: 4,
-        about: 'Quick-response Emergency Nurse',
+        about: 'Experienced Cardiologist',
         available: true,
       },
+      // Add 6 more demo Tp users with similar structure
+      // ...
     ];
 
     await queryInterface.bulkInsert('tp', demoTpUsers, {});
+
+    // Add any additional logic you need for the migration
 
     return Promise.resolve();
   },
 
   down: async (queryInterface, Sequelize) => {
+    // Remove the 'tp' table
     await queryInterface.dropTable('tp');
+
+    // Add any additional logic you need for rollback
 
     return Promise.resolve();
   },
