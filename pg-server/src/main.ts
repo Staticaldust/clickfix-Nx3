@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 const dbConnection = process.env.PG_URI;
+const jwtSecret = process.env.JWT_SECRET;
 
 app.use(
   postgraphile(dbConnection, 'public', {
@@ -18,7 +19,7 @@ app.use(
     enhanceGraphiql: true,
     dynamicJson: true,
     classicIds: true,
-    jwtSecret: 'some_secret_key_for_token@*987216',
+    jwtSecret: jwtSecret,
     jwtPgTypeIdentifier: 'public.token',
   })
 );

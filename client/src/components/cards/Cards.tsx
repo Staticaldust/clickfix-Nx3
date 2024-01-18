@@ -8,8 +8,13 @@ const Cards = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const tps = (await trpc.tps.query()).tps;
-        setTps(tps || []);
+        const token = 'your_jwt_from_postgraphile';
+        const response: { tps: TP[] } = await trpc.tps.query(
+          {},
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        const fetchedTps = response?.tps || [];
+        setTps(fetchedTps);
       } catch (error) {
         console.error(error);
       }
@@ -17,7 +22,6 @@ const Cards = () => {
 
     fetchData();
   }, []);
-
   if (tps.length === 0) {
     return (
       <div className="flex justify-center items-center h-screen">
