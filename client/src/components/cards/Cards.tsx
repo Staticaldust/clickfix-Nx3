@@ -1,40 +1,33 @@
+import { useEffect, useState } from 'react';
 import { trpc } from '../../utils/trpc';
+import { TP } from '../../utils/tpType';
 
-export const Cards = () => {
-  const tpsQuery = trpc.tps.useQuery();
-  const tps = tpsQuery.data?.tps || [];
-  const products = [
-    {
-      id: 1,
-      name: 'gardening',
-      href: '#',
-      imageSrc:
-        'https://s42814.pcdn.co/wp-content/uploads/2023/02/Garden_iStock_1414023501-scaled.jpg.webp',
-      imageAlt: "Front of men's Basic Tee in black.",
-      price: '⭐⭐⭐⭐',
-      color: '',
-    },
-    {
-      id: 2,
-      name: 'Plumbing',
-      href: '#',
-      imageSrc:
-        'https://gsmplumbing.com.au/wp-content/uploads/bb-plugin/cache/Depositphotos_442581318_l-2015-1024x645-landscape-3b51d9d7152bb07e68399643e5d14ad6-601cdb3faee63.jpg',
-      imageAlt: "Front of men's Casual Shirt in blue.",
-      price: '⭐⭐⭐⭐⭐',
-      color: '',
-    },
-    {
-      id: 3,
-      name: 'Mechanics',
-      href: '#',
-      imageSrc:
-        'https://assets-global.website-files.com/63fe4fbdc589b272c333d60b/6407b09eee45b446565a6e70_sitemgr_car-repair.jpg',
-      imageAlt: "Front of men's Denim Jeans in indigo.",
-      price: '⭐⭐⭐',
-      color: '',
-    },
-  ];
+const Cards = () => {
+  const [tps, setTps] = useState<TP[]>([]);
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const tps = (await trpc.tps.query()).tps;
+        setTps(tps || []);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (tps.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="relative w-24 h-24 animate-spin rounded-full bg-gradient-to-r from-purple-400 via-blue-500 to-red-400 ">
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-gray-200 rounded-full border-2 border-white"></div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">

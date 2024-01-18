@@ -24,12 +24,11 @@ export function App() {
 
   return (
     <ApolloProvider client={client}>
-      {/* <QueryClientProvider client={queryClient}>  */}
-      <BrowserRouter>
-        <RouterDom />
-      </BrowserRouter>
-
-      {/* </QueryClientProvider> */}
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <RouterDom />
+        </BrowserRouter>
+      </QueryClientProvider>
     </ApolloProvider>
   );
 }
