@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
-import { sequelize } from '../seqPG';
+import { sequelize } from '../sequelize';
 export type TpType = {
   tp_id: number;
   name: string;

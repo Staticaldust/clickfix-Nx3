@@ -10,3 +10,13 @@ export const sequelize = new Sequelize(PG_URI, {
   },
   logging: console.log,
 });
+
+export const syncDatabase = async () => {
+  try {
+    console.log('Attempting to synchronize database...');
+    await sequelize.sync();
+    console.log('Database synchronized');
+  } catch (error) {
+    console.error('Error synch db:', error, error.stack);
+  }
+};

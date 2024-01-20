@@ -1,5 +1,5 @@
 const faker = require('faker');
-import { sequelize } from '../seqPG';
+import { sequelize } from '../sequelize';
 import { Tp } from '../models/tp';
 
 let counter = -1;
