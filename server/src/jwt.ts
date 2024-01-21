@@ -1,11 +1,9 @@
-import * as jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
+const secretKey = process.env.JWT_SECRET;
 
-const decodeAndVerifyJwtToken = async (token: string): Promise<any> => {
+const decodeAndVerifyJwtToken = async (token: string) => {
   try {
-    const secretKey = process.env.JWT_SECRET;
-
     const decodedToken = jwt.verify(token, secretKey);
-
     return decodedToken;
   } catch (error) {
     console.error('Error decoding/verifying JWT token:', error);
@@ -13,4 +11,4 @@ const decodeAndVerifyJwtToken = async (token: string): Promise<any> => {
   }
 };
 
-export { decodeAndVerifyJwtToken };
+export default decodeAndVerifyJwtToken;

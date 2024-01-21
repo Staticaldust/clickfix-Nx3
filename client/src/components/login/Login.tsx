@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
-import { trpc } from '../../utils/trpc';
 import { useMutation } from '@apollo/client';
 import { LOGIN_MUTATION } from '../../utils/postgraphile';
 
@@ -11,34 +10,35 @@ const Login = () => {
   const [loginMessage, setLoginMessage] = useState('');
   const [load, setLoad] = useState(false);
   const navigate = useNavigate();
-  // const authQuery = trpc.userLogin.query;
   const [loginFunction, { data, loading, error }] = useMutation(LOGIN_MUTATION);
 
   const handleSignIn = async () => {
-    await loginFunction({
-      variables: {
-        input: {
-          email,
-          password,
-        },
-      },
-    });
-    if (data) {
-      localStorage.setItem('TOKEN', data.login.loginResponse.jwtToken);
-      console.log(data);
-
-      navigate('/categories');
-    }
-
-    if (loading) {
-      // Do nothing if already in the loading state
-
-      return;
-    }
-
-    setLoad(true);
-
     try {
+      const result = await loginFunction({
+        variables: {
+          input: {
+            email,
+            password,
+          },
+        },
+      });
+
+      if (result.errors || !result.data || !result.data.login) {
+        console.error('Authentication failed:', result.errors);
+        setLoginMessage('An error occurred during login.');
+      } else if (result.data.login.loginResponse.jwtToken) {
+        localStorage.setItem('TOKEN', result.data.login.loginResponse.jwtToken);
+        const user = result.data.login.loginResponse.userDetails;
+        console.log(user);
+
+        console.log(result.data);
+        navigate('/cards');
+      } else {
+        const errorMessage =
+          result.data.login.errors[0]?.message || 'Invalid email or password';
+        console.error('Authentication failed:', errorMessage);
+        setLoginMessage(errorMessage);
+      }
     } catch (error) {
       console.error('Error during authentication:', error);
       setLoginMessage('An error occurred during login.');

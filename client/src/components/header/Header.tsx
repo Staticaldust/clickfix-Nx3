@@ -2,6 +2,7 @@ import styles from './Header.module.css';
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { useNavigate } from 'react-router-dom';
 
 const navigation = [
   { name: 'Dashboard', href: '/', current: true },
@@ -14,6 +15,7 @@ function classNames(...classes: string[]) {
 }
 
 export function Header() {
+  const navigate = useNavigate();
   return (
     <>
       <div className={styles['container']}>
@@ -130,15 +132,18 @@ export function Header() {
                           </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
-                              <a
-                                href="#"
+                              <button
+                                onClick={() => {
+                                  localStorage.removeItem('TOKEN');
+                                  navigate('/login');
+                                }}
                                 className={classNames(
                                   active ? 'bg-gray-100' : '',
                                   'block px-4 py-2 text-sm text-gray-700'
                                 )}
                               >
                                 Sign out
-                              </a>
+                              </button>
                             )}
                           </Menu.Item>
                         </Menu.Items>

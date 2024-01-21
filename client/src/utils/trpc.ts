@@ -5,17 +5,12 @@ export const trpc = createTRPCProxyClient<AppRouter>({
   links: [
     httpBatchLink({
       url: 'http://localhost:2022',
-      async headers() {
-        const token = localStorage.getItem('token');
+      headers: () => {
         return {
-          authorization: token ? `Bearer ${token}` : '',
+          Authorization: String(localStorage.getItem('TOKEN')),
         };
       },
     }),
   ],
   // transformer: undefined,
 });
-
-// export function setToken(newToken: string) {
-//   token = newToken;
-// }

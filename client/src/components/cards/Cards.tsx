@@ -4,15 +4,10 @@ import { TP } from '../../utils/tpType';
 
 const Cards = () => {
   const [tps, setTps] = useState<TP[]>([]);
-  const [count, setCount] = useState(0);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = 'your_jwt_from_postgraphile';
-        const response: { tps: TP[] } = await trpc.tps.query(
-          {},
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        const response = await trpc.tps.query();
         const fetchedTps = response?.tps || [];
         setTps(fetchedTps);
       } catch (error) {
