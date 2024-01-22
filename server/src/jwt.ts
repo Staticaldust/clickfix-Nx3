@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 const secretKey = process.env.JWT_SECRET;
 
-const decodeAndVerifyJwtToken = async (token: string) => {
+const verifyJWT = async (token: string) => {
   try {
     const decodedToken = jwt.verify(token, secretKey);
     return decodedToken;
@@ -11,4 +11,4 @@ const decodeAndVerifyJwtToken = async (token: string) => {
   }
 };
 
-export default decodeAndVerifyJwtToken;
+export default verifyJWT;

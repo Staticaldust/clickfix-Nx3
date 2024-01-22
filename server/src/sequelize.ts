@@ -1,5 +1,8 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
+import { Category } from './models/category';
+import { User } from './models/user';
+import { Tp } from './models/tp';
 export const envConfig = dotenv.config();
 
 export const PG_URI = process.env.PG_URI!;
@@ -20,3 +23,11 @@ export const syncDatabase = async () => {
     console.error('Error synch db:', error, error.stack);
   }
 };
+sequelize
+  .sync({ force: true })
+  .then(() => {
+    console.log('Tables have been created successfully.');
+  })
+  .catch((error) => {
+    console.error('Error creating tables:', error);
+  });

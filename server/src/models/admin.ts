@@ -1,31 +1,21 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 import { sequelize } from '../sequelize';
-
-export type TpType = {
-  tp_id: number;
+export type AdminType = {
+  admin_id: number;
   name: string;
   address: string;
   email: string;
-  password: string;
   phone: string;
-  profession: string;
-  subSpecialty: string;
+  password: string;
   image: string;
-  Experience: string;
-  price_rating: number;
-  reliability_rating: number;
-  comments: number;
-  orders: number;
   history: string[];
-  about: string;
-  available: boolean;
   createdAt: string;
   updatedAt: string;
 };
-export const Tp = sequelize.define<Model<TpType, TpType>>(
-  'Tp',
+export const Admin = sequelize.define<Model<AdminType, AdminType>>(
+  'Admin',
   {
-    tp_id: {
+    admin_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -43,52 +33,19 @@ export const Tp = sequelize.define<Model<TpType, TpType>>(
       allowNull: false,
       unique: true,
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     phone: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    profession: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    subSpecialty: {
+    password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    Experience: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    price_rating: {
-      type: DataTypes.INTEGER,
-    },
-    reliability_rating: {
-      type: DataTypes.INTEGER,
-    },
-    comments: {
-      type: DataTypes.INTEGER,
-    },
-    orders: {
-      type: DataTypes.INTEGER,
     },
     history: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),
-    },
-    about: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    available: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -102,6 +59,6 @@ export const Tp = sequelize.define<Model<TpType, TpType>>(
     },
   },
   {
-    tableName: 'tps',
+    tableName: 'admins',
   }
 );

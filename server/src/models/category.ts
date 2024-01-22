@@ -1,21 +1,18 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 import { sequelize } from '../sequelize';
-export type UserType = {
-  user_id: number;
+export type CategoryType = {
+  category_id: number;
   name: string;
-  address: string;
-  email: string;
-  phone: string;
-  password: string;
   image: string;
-  history: string[];
+  video: string;
+  entries: number;
   createdAt: string;
   updatedAt: string;
 };
-export const User = sequelize.define<Model<UserType, UserType>>(
-  'User',
+export const Category = sequelize.define<Model<CategoryType, CategoryType>>(
+  'Category',
   {
-    user_id: {
+    category_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -23,29 +20,18 @@ export const User = sequelize.define<Model<UserType, UserType>>(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    address: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
       unique: true,
-    },
-    phone: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
     },
     image: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
-    history: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
+    video: {
+      type: DataTypes.STRING,
+    },
+    entries: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -59,6 +45,6 @@ export const User = sequelize.define<Model<UserType, UserType>>(
     },
   },
   {
-    tableName: 'users',
+    tableName: 'categories',
   }
 );

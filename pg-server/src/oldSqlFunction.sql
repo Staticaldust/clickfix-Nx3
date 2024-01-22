@@ -1,11 +1,3 @@
-CREATE TYPE public.token AS (
- password TEXT, email TEXT, role TEXT
-);
-
-CREATE TYPE public.login_response AS (
-  jwt_token public.token,
-  user_details  json
-);
 
 CREATE OR REPLACE FUNCTION public.login(email text, password text) 
 RETURNS public.login_response AS $$
@@ -30,10 +22,10 @@ BEGIN
   -- Check if email is equal to '8429693@GMAIL.COM'
   IF email = '8429693@gmail.com' THEN
     -- If yes, retrieve admin details
-    SELECT *
-    INTO admin_details
-    FROM public.admins
-    WHERE email = email;
+    SELECT a.*
+  INTO admin_details
+  FROM public.admins as a
+  WHERE a.email = login.email;
 
     IF NOT FOUND THEN
       RAISE EXCEPTION '23505' USING MESSAGE = 'Invalid email or password';
@@ -57,17 +49,17 @@ BEGIN
 
   ELSE
     -- Check in public.users
-    SELECT *
-    INTO user_details
-    FROM public.users
-    WHERE email = email;
+    SELECT a.*
+  INTO user_details
+  FROM public.users as a
+  WHERE a.email = login.email;
 
     IF NOT FOUND THEN
       -- Check in public.tps
-      SELECT *
-      INTO tp_details
-      FROM public.tps
-      WHERE email = email;
+      SELECT a.*
+  INTO tp_details
+  FROM public.tps as a
+  WHERE a.email = login.email;
 
       IF NOT FOUND THEN
         RAISE EXCEPTION '23505' USING MESSAGE = 'Invalid email or password';

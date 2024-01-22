@@ -14,6 +14,8 @@ const Login = () => {
 
   const handleSignIn = async () => {
     try {
+      console.log(1);
+
       const result = await loginFunction({
         variables: {
           input: {
@@ -22,6 +24,7 @@ const Login = () => {
           },
         },
       });
+      console.log(2);
 
       if (result.errors || !result.data || !result.data.login) {
         console.error('Authentication failed:', result.errors);

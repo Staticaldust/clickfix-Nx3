@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "tesla300",
-    "database": "click-fix",
+    "database": "clickfix",
     "host": "localhost",
     "port": 5432,
     "dialect": "postgres"
@@ -10,7 +10,7 @@
   "test": {
     "username": "postgres",
     "password": "tesla300",
-    "database": "click-fix",
+    "database": "clickfix",
     "host": "localhost",
     "port": 5432,
     "dialect": "postgres"
@@ -18,7 +18,7 @@
   "production": {
     "username": "postgres",
     "password": "tesla300",
-    "database": "click-fix",
+    "database": "clickfix",
     "host": "localhost",
     "port": 5432,
     "dialect": "postgres"

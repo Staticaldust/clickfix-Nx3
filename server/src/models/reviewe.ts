@@ -1,51 +1,47 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 import { sequelize } from '../sequelize';
-export type UserType = {
+import { User } from './user';
+import { Tp } from './tp';
+export type ReviewType = {
+  review_id: number;
+  tp_id: number;
   user_id: number;
-  name: string;
-  address: string;
-  email: string;
-  phone: string;
-  password: string;
+  price_rating: number;
+  reliability_rating: number;
+  comment: string;
   image: string;
-  history: string[];
   createdAt: string;
   updatedAt: string;
 };
-export const User = sequelize.define<Model<UserType, UserType>>(
-  'User',
+export const Review = sequelize.define<Model<ReviewType, ReviewType>>(
+  'Review',
   {
-    user_id: {
+    review_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
-      type: DataTypes.STRING,
+    tp_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    address: {
-      type: DataTypes.STRING,
+    user_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    phone: {
-      type: DataTypes.STRING,
+    price_rating: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    password: {
-      type: DataTypes.STRING,
+    reliability_rating: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    comment: {
+      type: DataTypes.STRING,
     },
     image: {
       type: DataTypes.STRING,
-    },
-    history: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -59,6 +55,6 @@ export const User = sequelize.define<Model<UserType, UserType>>(
     },
   },
   {
-    tableName: 'users',
+    tableName: 'reviews',
   }
 );
