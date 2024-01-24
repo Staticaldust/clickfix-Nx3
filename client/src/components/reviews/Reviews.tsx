@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Navigate, useLocation } from 'react-router-dom';
 import { ReviewType } from 'server/src/models/reviewe';
 import { Buy } from './Buy';
-
+import Map from '../map/Map';
 export const Reviews = () => {
   const navigate = useNavigate();
   const [reviews, setReviews] = useState<ReviewType[]>([]);
@@ -49,23 +49,21 @@ export const Reviews = () => {
   return (
     <div className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:mx-0">
+        <div className="mx-auto max-w-2xl lg:mx-0 flex">
           <figure className="relative h-60 w-60 md:h-80 md:w-80">
             <img
               className="h-full w-full rounded-xl object-cover object-center"
               src={selectedTpImage || undefined}
               alt="nature image"
             />
-            <figcaption className="absolute bottom-8 left-2/4 flex w-[calc(100%-4rem)] -translate-x-2/4 justify-between rounded-xl border border-white bg-white/75 py-4 px-6 shadow-lg shadow-black/5 saturate-200 backdrop-blur-sm">
-              <div>
-                <Typography variant="h5" color="blue-gray">
-                  {selectedTpName}
-                </Typography>
-              </div>
+
+            <figcaption className="absolute bottom-8 left-2/4 flex w-[calc(100%-4rem)] -translate-x-2/4 justify-between rounded-xl border py-4 px-6 shadow-lg shadow-white/5 saturate-200 backdrop-blur-sm">
+              <Buy name={selectedTpName!} />
             </figcaption>
-            <Buy name={selectedTpName!} />
           </figure>
+          <Map />
         </div>
+
         <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {reviews.map((review) => (
             <article

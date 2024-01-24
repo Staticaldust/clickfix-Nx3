@@ -8,7 +8,6 @@ import Categories from '../components/categories/Categories';
 import Layout from '../components/layout/Layout';
 import Status from '../components/status/Status';
 import { Reviews } from '../components/reviews/Reviews';
-import Map from '../components/map/Map';
 
 const RouterDom: React.FC = () => {
   return (
@@ -21,7 +20,6 @@ const RouterDom: React.FC = () => {
         <Route path="/cards" element={<Cards />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/status" element={<Status />} />
-        <Route path="/map" element={<Map />} />
       </Route>
     </Routes>
   );

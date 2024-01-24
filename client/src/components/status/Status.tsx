@@ -23,9 +23,7 @@ export const Status = () => {
           </div>
         </div>
       </section>
-      <section>
-        <Map />
-      </section>
+      <section></section>
     </>
   );
 };
