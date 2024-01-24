@@ -27,11 +27,11 @@ app.listen(PORT, () => {
   console.log(`:rocket: Server ready at http://localhost:${PORT}/`);
 });
 
-fetch('http://localhost:3000/graphql', {
-  method: 'POST',
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
-  body: `{"query":"query MyQuery {\n  allUsers {\n    edges {\n      node {\n        id\n        name\n        password\n        phone\n        updatedAt\n        userId\n        image\n        history\n        email\n        createdAt\n        address\n      }\n    }\n  }\n}\n","variables":{"input":{"email":"8429693@gmail.com","password":"passwordishay"}},"operationName":"MyQuery"}`,
-}).then(console.log);
+// fetch('http://localhost:3000/graphql', {
+//   method: 'POST',
+//   headers: {
+//     Accept: 'application/json',
+//     'Content-Type': 'application/json',
+//   },
+//   body: `{"query":"query MyQuery {\n  allUsers {\n    edges {\n      node {\n        id\n        name\n        password\n        phone\n        updatedAt\n        userId\n        image\n        history\n        email\n        createdAt\n        address\n      }\n    }\n  }\n}\n","variables":{"input":{"email":"8429693@gmail.com","password":"passwordishay"}},"operationName":"MyQuery"}`,
+// }).then(console.log);

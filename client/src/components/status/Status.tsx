@@ -1,5 +1,4 @@
-import Simple from '../map/map';
-
+import Map from '../map/Map';
 export const Status = () => {
   return (
     <>
@@ -25,7 +24,7 @@ export const Status = () => {
         </div>
       </section>
       <section>
-        <Simple />
+        <Map />
       </section>
     </>
   );
