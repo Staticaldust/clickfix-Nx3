@@ -9,8 +9,8 @@ export interface TP {
   updatedAt: string;
   tp_id: number;
   profession: string;
-  subSpecialty: string;
-  Experience: string;
+  subspecialty: string;
+  experience: string;
   rating: number;
   about: string;
   available: boolean;

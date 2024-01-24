@@ -1,22 +1,32 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { trpc } from '../../utils/trpc';
-import { TP } from '../../utils/tpType';
+import { TpType } from 'server/src/models/tp';
+import TpDetails from '../tpDetails/TpDetails';
 
 const Cards = () => {
-  const [tps, setTps] = useState<TP[]>([]);
+  const [tps, setTps] = useState<TpType[]>([]);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const selectedCategory = queryParams.get('category');
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await trpc.tps.query();
         const fetchedTps = response?.tps || [];
-        setTps(fetchedTps);
+        const filteredTps = selectedCategory
+          ? fetchedTps.filter((tp) => tp.profession === selectedCategory)
+          : fetchedTps;
+
+        setTps(filteredTps);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [selectedCategory]);
+
   if (tps.length === 0) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -47,22 +57,23 @@ const Cards = () => {
             >
               <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
-                  <img className="rounded-t-lg" src={tp.image} alt="" />
+                  <img
+                    className="rounded-t-lg object-cover w-full h-40"
+                    src={tp.image}
+                    alt=""
+                  />
                 </a>
                 <div className="p-5">
-                  <a href="#">
+                  <button>
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                       {tp.name}
                     </h5>
-                  </a>
+                  </button>
                   <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                     {tp.profession}
                   </p>
 
-                  <a
-                    href="#"
-                    className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >
+                  <button className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Show TP
                     <svg
                       className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
@@ -79,7 +90,7 @@ const Cards = () => {
                         d="M1 5h12m0 0L9 1m4 4L9 9"
                       />
                     </svg>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>

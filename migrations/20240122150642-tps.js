@@ -33,7 +33,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      subSpecialty: {
+      subspecialty: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -41,7 +41,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      Experience: {
+      experience: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },

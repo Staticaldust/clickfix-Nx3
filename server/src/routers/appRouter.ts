@@ -23,4 +23,13 @@ export const appRouter = router({
       tps: tps,
     };
   }),
+  categories: publicProcedure.query(async (opts) => {
+    if (!opts.ctx.user) {
+      throw new TRPCError({ code: 'UNAUTHORIZED' });
+    }
+    const categories = await db.categories.getCategories();
+    return {
+      categories: categories,
+    };
+  }),
 });

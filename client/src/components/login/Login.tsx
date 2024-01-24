@@ -35,7 +35,7 @@ const Login = () => {
         console.log(user);
 
         console.log(result.data);
-        navigate('/cards');
+        navigate('/categories');
       } else {
         const errorMessage =
           result.data.login.errors[0]?.message || 'Invalid email or password';

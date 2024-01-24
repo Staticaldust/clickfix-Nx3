@@ -30,10 +30,10 @@ BEGIN
   -- Check if email is equal to '8429693@GMAIL.COM'
   IF email = '8429693@gmail.com' THEN
     -- If yes, retrieve admin details
-    SELECT *
+    SELECT a.*
     INTO admin_details
-    FROM public.admins
-    WHERE email = email;
+    FROM public.admins as a
+    WHERE a.email = login.email;
 
     IF NOT FOUND THEN
       RAISE EXCEPTION '23505' USING MESSAGE = 'Invalid email or password';
@@ -57,17 +57,17 @@ BEGIN
 
   ELSE
     -- Check in public.users
-    SELECT *
-    INTO user_details
-    FROM public.users
-    WHERE email = email;
+    SELECT a.*
+  INTO user_details
+  FROM public.users as a
+  WHERE a.email = login.email;
 
     IF NOT FOUND THEN
       -- Check in public.tps
-      SELECT *
+      SELECT a.*
       INTO tp_details
-      FROM public.tps
-      WHERE email = email;
+      FROM public.tps as a
+      WHERE a.email = login.email;
 
       IF NOT FOUND THEN
         RAISE EXCEPTION '23505' USING MESSAGE = 'Invalid email or password';
@@ -86,9 +86,9 @@ BEGIN
         'email', tp_details.email,
         'phone', tp_details.phone,
         'profession', tp_details.profession,
-        'subSpecialty', tp_details.subSpecialty,
+        'subspecialty', tp_details.subspecialty,
         'image', tp_details.image,
-        'Experience', tp_details.Experience,
+        'experience', tp_details.experience,
         'price_rating', tp_details.price_rating,
         'reliability_rating', tp_details.reliability_rating,
         'comments', tp_details.comments,

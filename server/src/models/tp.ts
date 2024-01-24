@@ -9,9 +9,9 @@ export type TpType = {
   password: string;
   phone: string;
   profession: string;
-  subSpecialty: string;
+  subspecialty: string;
   image: string;
-  Experience: string;
+  experience: string;
   price_rating: number;
   reliability_rating: number;
   comments: number;
@@ -55,7 +55,7 @@ export const Tp = sequelize.define<Model<TpType, TpType>>(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    subSpecialty: {
+    subspecialty: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -63,7 +63,7 @@ export const Tp = sequelize.define<Model<TpType, TpType>>(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Experience: {
+    experience: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
