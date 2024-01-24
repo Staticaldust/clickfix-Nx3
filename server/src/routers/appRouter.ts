@@ -32,4 +32,13 @@ export const appRouter = router({
       categories: categories,
     };
   }),
+  reviews: publicProcedure.query(async (opts) => {
+    if (!opts.ctx.user) {
+      throw new TRPCError({ code: 'UNAUTHORIZED' });
+    }
+    const reviews = await db.reviews.getReviews();
+    return {
+      reviews: reviews,
+    };
+  }),
 });

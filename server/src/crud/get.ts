@@ -1,4 +1,5 @@
 import { Category } from '../models/category';
+import { Review } from '../models/reviewe';
 import { Tp } from '../models/tp';
 import { User } from '../models/user';
 
@@ -30,5 +31,9 @@ export const db = {
     //   users.push(user);
     //   return user;
     // },
+  },
+  reviews: {
+    getReview: async (id: number) => (await Review.findByPk(id)).dataValues,
+    getReviews: async () => (await Review.findAll()).map((i) => i.dataValues),
   },
 };

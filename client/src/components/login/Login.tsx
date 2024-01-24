@@ -33,7 +33,6 @@ const Login = () => {
         localStorage.setItem('TOKEN', result.data.login.loginResponse.jwtToken);
         const user = result.data.login.loginResponse.userDetails;
         console.log(user);
-
         console.log(result.data);
         navigate('/categories');
       } else {

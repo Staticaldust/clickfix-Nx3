@@ -5,7 +5,7 @@ import { CategoryType } from 'server/src/models/category';
 
 const Categories = () => {
   const navigate = useNavigate();
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  // const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   if (!localStorage.getItem('TOKEN')) {
     return <Navigate replace to={'/login'} />;
   }
@@ -55,7 +55,7 @@ const Categories = () => {
             key={category.category_id}
             className="group relative"
             onClick={() => {
-              setSelectedCategory(category.name);
+              // setSelectedCategory(category.name);
               navigate(`/cards?category=${encodeURIComponent(category.name)}`);
             }}
           >

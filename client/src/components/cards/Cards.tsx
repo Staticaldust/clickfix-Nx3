@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { trpc } from '../../utils/trpc';
 import { TpType } from 'server/src/models/tp';
 import TpDetails from '../tpDetails/TpDetails';
+import { useNavigate } from 'react-router-dom';
 
 const Cards = () => {
+  const navigate = useNavigate();
   const [tps, setTps] = useState<TpType[]>([]);
+  if (!localStorage.getItem('TOKEN')) {
+    return <Navigate replace to={'/login'} />;
+  }
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const selectedCategory = queryParams.get('category');
@@ -73,7 +78,16 @@ const Cards = () => {
                     {tp.profession}
                   </p>
 
-                  <button className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                  <button
+                    className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    onClick={() =>
+                      navigate(
+                        `/reviews?tp_id=${encodeURIComponent(
+                          tp.tp_id
+                        )}&tp_image=${tp.image}&tp_name=${tp.name}`
+                      )
+                    }
+                  >
                     Show TP
                     <svg
                       className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
