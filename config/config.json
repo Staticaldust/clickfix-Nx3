@@ -1,25 +1,25 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "tesla300",
-    "database": "clickfix",
-    "host": "localhost",
+    "username": "ishay",
+    "password": "lR6mOoykaC8DlFSUs4UDwKCjhBkVadsz",
+    "database": "clickfix_pcb9",
+    "host": "dpg-cmp80n6g1b2c73f9qvu0-a",
     "port": 5432,
     "dialect": "postgres"
   },
   "test": {
-    "username": "postgres",
-    "password": "tesla300",
-    "database": "clickfix",
-    "host": "localhost",
+    "username": "ishay",
+    "password": "lR6mOoykaC8DlFSUs4UDwKCjhBkVadsz",
+    "database": "clickfix_pcb9",
+    "host": "dpg-cmp80n6g1b2c73f9qvu0-a",
     "port": 5432,
     "dialect": "postgres"
   },
   "production": {
-    "username": "postgres",
-    "password": "tesla300",
-    "database": "clickfix",
-    "host": "localhost",
+    "username": "ishay",
+    "password": "lR6mOoykaC8DlFSUs4UDwKCjhBkVadsz",
+    "database": "clickfix_pcb9",
+    "host": "dpg-cmp80n6g1b2c73f9qvu0-a",
     "port": 5432,
     "dialect": "postgres"
   }

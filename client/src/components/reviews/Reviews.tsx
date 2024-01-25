@@ -5,6 +5,7 @@ import { useNavigate, Navigate, useLocation } from 'react-router-dom';
 import { ReviewType } from 'server/src/models/reviewe';
 import { Buy } from './Buy';
 import Map from '../map/Map';
+import MapCard from './MapCard';
 export const Reviews = () => {
   const navigate = useNavigate();
   const [reviews, setReviews] = useState<ReviewType[]>([]);
@@ -47,67 +48,64 @@ export const Reviews = () => {
     );
   }
   return (
-    <div className="bg-white py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:mx-0 flex">
-          <figure className="relative h-60 w-60 md:h-80 md:w-80">
-            <img
-              className="h-full w-full rounded-xl object-cover object-center"
-              src={selectedTpImage || undefined}
-              alt="nature image"
-            />
+    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row', // Set the direction to horizontal
+          justifyContent: 'space-between', // Add space between the components
+          margin: '30px',
+        }}
+      >
+        <MapCard image={selectedTpImage} name={selectedTpName} />
+        <Map />
+      </div>
 
-            <figcaption className="absolute bottom-8 left-2/4 flex w-[calc(100%-4rem)] -translate-x-2/4 justify-between rounded-xl border py-4 px-6 shadow-lg shadow-white/5 saturate-200 backdrop-blur-sm">
-              <Buy name={selectedTpName!} />
-            </figcaption>
-          </figure>
-          <Map />
-        </div>
-
-        <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {reviews.map((review) => (
-            <article
-              key={review.review_id}
-              className="flex max-w-xl flex-col items-start justify-between"
-            >
-              <div className="flex items-center gap-x-4 text-xs">
-                <time dateTime={review.createdAt} className="text-gray-500">
-                  {review.createdAt}
-                </time>
-                <button className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+      <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        {reviews.map((review) => (
+          <article
+            key={review.review_id}
+            className="flex max-w-xl flex-col items-start justify-between"
+          >
+            <div className="flex items-center gap-x-4 text-xs">
+              <time dateTime={review.createdAt} className="text-gray-500">
+                {review.createdAt}
+              </time>
+              <button className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
+                title
+              </button>
+            </div>
+            <div className="group relative">
+              <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                <button>
+                  <span className="absolute inset-0" />
                   title
                 </button>
-              </div>
-              <div className="group relative">
-                <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                  <button>
-                    <span className="absolute inset-0" />
-                    title
-                  </button>
-                </h3>
-                <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
-                  {review.comment}
-                </p>
-              </div>
-              <div className="relative mt-8 flex items-center gap-x-4">
+              </h3>
+              <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
+                {review.comment}
+              </p>
+            </div>
+            <div className="relative mt-8 flex items-center gap-x-4">
+              {selectedTpImage && (
                 <img
-                  src={review.image}
+                  src={selectedTpImage}
                   alt=""
                   className="h-10 w-10 rounded-full bg-gray-50"
                 />
-                <div className="text-sm leading-6">
-                  <p className="font-semibold text-gray-900">
-                    <button>
-                      <span className="absolute inset-0" />
-                      שם משתמש
-                    </button>
-                  </p>
-                  <p className="text-gray-600">תיאור משתמש</p>
-                </div>
+              )}
+              <div className="text-sm leading-6">
+                <p className="font-semibold text-gray-900">
+                  <button>
+                    <span className="absolute inset-0" />
+                    שם משתמש
+                  </button>
+                </p>
+                <p className="text-gray-600">תיאור משתמש</p>
               </div>
-            </article>
-          ))}
-        </div>
+            </div>
+          </article>
+        ))}
       </div>
     </div>
   );

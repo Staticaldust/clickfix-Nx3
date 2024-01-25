@@ -61,13 +61,12 @@ const Cards = () => {
               className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 mb-8"
             >
               <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                  <img
-                    className="rounded-t-lg object-cover w-full h-40"
-                    src={tp.image}
-                    alt=""
-                  />
-                </a>
+                <img
+                  className="rounded-t-lg object-cover w-full h-40"
+                  src={tp.image}
+                  alt=""
+                />
+
                 <div className="p-5">
                   <button>
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -88,7 +87,7 @@ const Cards = () => {
                       )
                     }
                   >
-                    Show TP
+                    פרטים
                     <svg
                       className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
                       aria-hidden="true"
