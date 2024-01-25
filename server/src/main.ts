@@ -1,11 +1,20 @@
 import { createHTTPServer } from '@trpc/server/adapters/standalone';
 import cors from 'cors';
 import { appRouter } from './routers/appRouter';
-import { syncDatabase } from './sequelize';
+// import { syncDatabase } from './sequelize';
 import { createContext } from './context';
+import { createTableUsers } from './models/user';
+import { createTableAdmin } from './models/admin';
+import { createTableCategory } from './models/category';
+import { createTableTp } from './models/tp';
+import { createTableReview } from './models/reviewe';
 
-syncDatabase();
-
+// syncDatabase();
+// createTableUsers();
+// createTableAdmin();
+// createTableCategory();
+// createTableTp();
+// createTableReview();
 const server = createHTTPServer({
   middleware: cors(),
   router: appRouter,

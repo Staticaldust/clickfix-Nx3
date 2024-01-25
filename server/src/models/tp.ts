@@ -105,3 +105,11 @@ export const Tp = sequelize.define<Model<TpType, TpType>>(
     tableName: 'tps',
   }
 );
+export const createTableTp = async () => {
+  try {
+    console.log('Creating table tps');
+    await Tp.sync({ alter: true });
+  } catch (error) {
+    console.error(error);
+  }
+};

@@ -2,6 +2,10 @@
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto SCHEMA public;
 
+SELECT * FROM users
+
+CREATE SCHEMA u
+
 
 CREATE TYPE recipes_schema.login_respons AS
 (

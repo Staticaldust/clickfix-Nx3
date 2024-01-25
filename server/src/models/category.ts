@@ -48,3 +48,11 @@ export const Category = sequelize.define<Model<CategoryType, CategoryType>>(
     tableName: 'categories',
   }
 );
+export const createTableCategory = async () => {
+  try {
+    console.log('Creating table categories');
+    await Category.sync({ alter: true });
+  } catch (error) {
+    console.error(error);
+  }
+};

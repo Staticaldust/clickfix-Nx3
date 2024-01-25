@@ -62,3 +62,11 @@ export const Admin = sequelize.define<Model<AdminType, AdminType>>(
     tableName: 'admins',
   }
 );
+export const createTableAdmin = async () => {
+  try {
+    console.log('Creating table admins');
+    await Admin.sync({ alter: true });
+  } catch (error) {
+    console.error(error);
+  }
+};

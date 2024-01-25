@@ -58,3 +58,11 @@ export const Review = sequelize.define<Model<ReviewType, ReviewType>>(
     tableName: 'reviews',
   }
 );
+export const createTableReview = async () => {
+  try {
+    console.log('Creating table reviews');
+    await Review.sync({ alter: true });
+  } catch (error) {
+    console.error(error);
+  }
+};
