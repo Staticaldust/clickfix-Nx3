@@ -2,18 +2,21 @@ import { DataTypes, Model, Sequelize } from 'sequelize';
 import { sequelize } from '../sequelize';
 import { User } from './user';
 import { Tp } from './tp';
-export type ReviewType = {
-  review_id: number;
+export type ReviewData = {
   tp_id: number;
   user_id: number;
   price_rating: number;
   reliability_rating: number;
   comment: string;
   image: string;
+};
+export interface ReviewType extends ReviewData {
+  review_id: number;
   createdAt: string;
   updatedAt: string;
-};
-export const Review = sequelize.define<Model<ReviewType, ReviewType>>(
+}
+
+export const Review = sequelize.define<Model<ReviewType, ReviewData>>(
   'Review',
   {
     review_id: {

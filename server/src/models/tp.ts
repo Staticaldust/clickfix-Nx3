@@ -1,8 +1,7 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 import { sequelize } from '../sequelize';
 
-export type TpType = {
-  tp_id: number;
+export type TpData = {
   name: string;
   address: string;
   email: string;
@@ -19,10 +18,13 @@ export type TpType = {
   history: string[];
   about: string;
   available: boolean;
+};
+export interface TpType extends TpData {
+  tp_id: number;
   createdAt: string;
   updatedAt: string;
-};
-export const Tp = sequelize.define<Model<TpType, TpType>>(
+}
+export const Tp = sequelize.define<Model<TpType, TpData>>(
   'Tp',
   {
     tp_id: {
@@ -112,4 +114,33 @@ export const createTableTp = async () => {
   } catch (error) {
     console.error(error);
   }
+};
+export const createTp = async (tpData: TpData) => {
+  try {
+    const newTp = await Tp.create(tpData);
+    console.log('New Tp created:', newTp.toJSON());
+    return newTp;
+  } catch (error) {
+    console.error('Error creating Tp:', error);
+    throw error;
+  }
+};
+export const tpDetails: TpData = {
+  name: 'ליאור רז',
+  address: '5TH avenue',
+  email: 'lior@gmail.com',
+  password: 'vin',
+  phone: '0525381648',
+  profession: 'אינסטלציה',
+  subspecialty: 'מנועים',
+  image:
+    'https://media.discordapp.net/attachments/1194572187449958453/1200427786100281534/zTnySRVJBTltaSc9o7NCBZPlTrNxZpj9ok-4CYOGcfDcWQMPqeCpC1Aj_8u9w6KGF5Kgv6c-i6-DPC2028sLI8xrcAvbbUS.png',
+  experience: '2',
+  price_rating: 2,
+  reliability_rating: 5,
+  comments: 0,
+  orders: 0,
+  history: [],
+  about: 'מכונאי מורשה, אמין ומהיר',
+  available: true,
 };

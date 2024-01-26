@@ -4,9 +4,13 @@ import { appRouter } from './routers/appRouter';
 // import { syncDatabase } from './sequelize';
 import { createContext } from './context';
 import { createTableUsers } from './models/user';
-import { createTableAdmin } from './models/admin';
-import { createTableCategory } from './models/category';
-import { createTableTp } from './models/tp';
+import { createTableAdmin, createAdmin, adminDetails } from './models/admin';
+import {
+  createTableCategory,
+  createCategory,
+  categoryDetails,
+} from './models/category';
+import { createTableTp, createTp, tpDetails } from './models/tp';
 import { createTableReview } from './models/reviewe';
 
 // syncDatabase();
@@ -15,6 +19,9 @@ import { createTableReview } from './models/reviewe';
 // createTableCategory();
 // createTableTp();
 // createTableReview();
+// createAdmin(adminDetails);
+// createCategory(categoryDetails);
+createTp(tpDetails);
 const server = createHTTPServer({
   middleware: cors(),
   router: appRouter,

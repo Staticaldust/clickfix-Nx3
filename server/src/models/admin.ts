@@ -1,18 +1,23 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 import { sequelize } from '../sequelize';
-export type AdminType = {
-  admin_id: number;
+
+export interface AdminData {
   name: string;
   address: string;
   email: string;
   phone: string;
   password: string;
-  image: string;
-  history: string[];
+  image?: string;
+  history?: string[];
+}
+
+export interface AdminType extends AdminData {
+  admin_id: number;
   createdAt: string;
   updatedAt: string;
-};
-export const Admin = sequelize.define<Model<AdminType, AdminType>>(
+}
+
+export const Admin = sequelize.define<Model<AdminType, AdminData>>(
   'Admin',
   {
     admin_id: {
@@ -62,6 +67,7 @@ export const Admin = sequelize.define<Model<AdminType, AdminType>>(
     tableName: 'admins',
   }
 );
+
 export const createTableAdmin = async () => {
   try {
     console.log('Creating table admins');
@@ -69,4 +75,22 @@ export const createTableAdmin = async () => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const createAdmin = async (adminData: AdminData) => {
+  try {
+    const newAdmin = await Admin.create(adminData);
+    console.log('New admin created:', newAdmin.toJSON());
+    return newAdmin;
+  } catch (error) {
+    console.error('Error creating admin:', error);
+    throw error;
+  }
+};
+export const adminDetails: AdminData = {
+  name: 'ישי פור',
+  address: 'הפסגה 12',
+  email: '8429693@gmail.com',
+  phone: '0525381648',
+  password: 'passwordishay',
 };

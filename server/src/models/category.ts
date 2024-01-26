@@ -1,14 +1,16 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 import { sequelize } from '../sequelize';
-export type CategoryType = {
-  category_id: number;
+export type CategoryData = {
   name: string;
   image: string;
   video: string;
   entries: number;
+};
+export interface CategoryType extends CategoryData {
+  category_id: number;
   createdAt: string;
   updatedAt: string;
-};
+}
 export const Category = sequelize.define<Model<CategoryType, CategoryType>>(
   'Category',
   {
@@ -55,4 +57,21 @@ export const createTableCategory = async () => {
   } catch (error) {
     console.error(error);
   }
+};
+export const createCategory = async (categoryData: CategoryData) => {
+  try {
+    const newCategory = await Category.create(categoryData);
+    console.log('New Category created:', newCategory.toJSON());
+    return newCategory;
+  } catch (error) {
+    console.error('Error creating Category:', error);
+    throw error;
+  }
+};
+export const categoryDetails: CategoryData = {
+  name: 'אלקטרוניקה',
+  image:
+    'https://media.discordapp.net/attachments/1194572187449958453/1200436416115654676/ai.png',
+  video: 'string',
+  entries: 0,
 };

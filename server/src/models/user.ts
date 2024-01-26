@@ -1,7 +1,6 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
 import { sequelize } from '../sequelize';
-export type UserType = {
-  user_id: number;
+export type UserData = {
   name: string;
   address: string;
   email: string;
@@ -9,10 +8,13 @@ export type UserType = {
   password: string;
   image: string;
   history: string[];
+};
+export interface UserType extends UserData {
+  user_id: number;
   createdAt: string;
   updatedAt: string;
-};
-export const User = sequelize.define<Model<UserType, UserType>>(
+}
+export const User = sequelize.define<Model<UserType, UserData>>(
   'User',
   {
     user_id: {
