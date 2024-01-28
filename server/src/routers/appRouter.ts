@@ -1,19 +1,8 @@
-import { z } from 'zod';
 import { publicProcedure, router } from '../trpc';
 import { db } from '../crud/get';
 import { TRPCError } from '@trpc/server';
+import { createUser } from '../crud/get';
 export const appRouter = router({
-  // tp: publicProcedure
-  //   .input(z.object({ id: z.number() }))
-  //   .query(async ({ input }) => {
-  //     // if (!opts.ctx.user) {
-  //     //   throw new TRPCError({ code: 'UNAUTHORIZED' });
-  //     // }
-  //     const tp = await db.tps.getTp(input.id);
-  //     return {
-  //       tp: tp,
-  //     };
-  //   }),
   tps: publicProcedure.query(async (opts) => {
     if (!opts.ctx.user) {
       throw new TRPCError({ code: 'UNAUTHORIZED' });
@@ -48,6 +37,12 @@ export const appRouter = router({
     const users = await db.users.getUsers();
     return {
       users: users,
+    };
+  }),
+  createUser: publicProcedure.mutation(async ({ input }) => {
+    const user = await createUser(input);
+    return {
+      user,
     };
   }),
 });

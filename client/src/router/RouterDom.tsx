@@ -9,7 +9,8 @@ import Layout from '../components/layout/Layout';
 import Status from '../components/status/Status';
 import { Reviews } from '../components/reviews/Reviews';
 import NotFoundPage from '../components/notFoundPage/NotFoundPage';
-import MapCard from '../components/reviews/MapCard';
+import { MyAvatar } from '../components/header/Avatar';
+import { EditProfile } from '../components/editProfile/EditProfile';
 
 const RouterDom: React.FC = () => {
   return (
@@ -22,6 +23,8 @@ const RouterDom: React.FC = () => {
         <Route path="/cards" element={<Cards />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/status" element={<Status />} />
+        <Route path="/avatar" element={<MyAvatar />} />
+        <Route path="/editprofile" element={<EditProfile />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

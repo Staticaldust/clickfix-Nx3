@@ -3,8 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import { useMutation } from '@apollo/client';
 import { LOGIN_MUTATION } from '../../utils/postgraphile';
+import { atom, useAtom } from 'jotai';
 
+export const currentUserAtom = atom({
+  name: '',
+  address: '',
+  email: '',
+  phone: '',
+  image: '',
+  history: '',
+  loginMessage: '',
+  load: false,
+});
 const Login = () => {
+  const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginMessage, setLoginMessage] = useState('');
@@ -14,8 +26,7 @@ const Login = () => {
 
   const handleSignIn = async () => {
     try {
-      console.log(1);
-
+      setCurrentUser({ ...currentUser, load: true });
       const result = await loginFunction({
         variables: {
           input: {
@@ -24,34 +35,54 @@ const Login = () => {
           },
         },
       });
-      console.log(2);
 
       if (result.errors || !result.data || !result.data.login) {
         console.error('Authentication failed:', result.errors);
+        setCurrentUser({
+          ...currentUser,
+          loginMessage: 'An error occurred during login.',
+          load: false,
+        });
         setLoginMessage('An error occurred during login.');
       } else if (result.data.login.loginResponse.jwtToken) {
         localStorage.setItem('TOKEN', result.data.login.loginResponse.jwtToken);
         const user = result.data.login.loginResponse.userDetails;
-        console.log(user);
-        console.log(result.data);
+        setCurrentUser({
+          name: user.name,
+          address: user.address,
+          email: user.email,
+          phone: user.phone,
+          image: user.image,
+          history: user.history,
+          loginMessage: 'maze?',
+          load: false,
+        });
+
         navigate('/categories');
       } else {
         const errorMessage =
           result.data.login.errors[0]?.message || 'Invalid email or password';
         console.error('Authentication failed:', errorMessage);
+        setCurrentUser({
+          ...currentUser,
+          loginMessage: errorMessage,
+          load: false,
+        });
         setLoginMessage(errorMessage);
       }
     } catch (error) {
       console.error('Error during authentication:', error);
       setLoginMessage('An error occurred during login.');
+      setCurrentUser({
+        ...currentUser,
+        loginMessage: 'An error occurred during login.',
+        load: false,
+      });
     } finally {
       setLoad(false);
     }
   };
 
-  // if (localStorage.getItem('doesExist') === 'true') {
-  //   return <Navigate replace to={'/categories'} />;
-  // }
   return (
     <div className={styles['container']}>
       <div>

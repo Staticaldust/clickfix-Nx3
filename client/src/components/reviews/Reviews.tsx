@@ -2,10 +2,11 @@ import { Typography } from '@material-tailwind/react';
 import { trpc } from '../../utils/trpc';
 import { useState, useEffect } from 'react';
 import { useNavigate, Navigate, useLocation } from 'react-router-dom';
-import { ReviewType } from 'server/src/models/reviewe';
+import { ReviewType } from '../../../../server/src/models/reviewe';
 import { Buy } from './Buy';
 import Map from '../map/Map';
 import MapCard from './MapCard';
+import { User, UserType } from '../../../../server/src/models/user';
 export const Reviews = () => {
   const navigate = useNavigate();
   const [reviews, setReviews] = useState<ReviewType[]>([]);

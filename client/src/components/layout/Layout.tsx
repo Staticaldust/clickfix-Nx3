@@ -1,5 +1,5 @@
 import styles from './Layout.module.css';
-import Header from '../header/Header';
+import NewHeader from '../header/NewHeader';
 import { Outlet } from 'react-router-dom';
 
 /* eslint-disable-next-line */
@@ -7,8 +7,10 @@ import { Outlet } from 'react-router-dom';
 export function Layout() {
   return (
     <div className={styles['container']}>
-      <Header />
-      <Outlet />
+      <NewHeader />
+      <div className="pt-20">
+        <Outlet />
+      </div>
     </div>
   );
 }
