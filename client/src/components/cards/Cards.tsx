@@ -83,7 +83,11 @@ const Cards = () => {
                       navigate(
                         `/reviews?tp_id=${encodeURIComponent(
                           tp.tp_id
-                        )}&tp_image=${tp.image}&tp_name=${tp.name}`
+                        )}&tp_image=${tp.image}&tp_name=${tp.name}&about=${
+                          tp.about
+                        }&available=${tp.phone}&phone=${tp.phone}&email=${
+                          tp.email
+                        }&experience=${tp.experience}`
                       )
                     }
                   >

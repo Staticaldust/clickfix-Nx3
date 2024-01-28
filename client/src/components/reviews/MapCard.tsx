@@ -3,8 +3,21 @@ import { useNavigate } from 'react-router-dom';
 interface MapCardProps {
   image: string | null;
   name: string | null;
+  about: string | null;
+  phone: string | null;
+  email: string | null;
+  experience: string | null;
 }
-const MapCard: React.FC<MapCardProps> = ({ image, name }) => {
+
+const MapCard: React.FC<MapCardProps> = ({
+  image,
+  name,
+  about,
+  phone,
+  email,
+  experience,
+}) => {
+  console.log(about);
   const navigate = useNavigate();
   return (
     <div className="flex relative overflow-hidden space-x-4">
@@ -19,15 +32,26 @@ const MapCard: React.FC<MapCardProps> = ({ image, name }) => {
         {name && (
           <>
             <a href="#">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {name}
-              </h5>
+              </h3>
             </a>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order. in reverse chronological
-              order. in reverse chronological order.
+              {phone}
             </p>
+
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              {email}
+            </p>
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              {experience}
+            </p>
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              {about}
+            </p>
+
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
+
             <button
               onClick={() => navigate('/status')}
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"

@@ -126,17 +126,17 @@ export const createTp = async (tpData: TpData) => {
   }
 };
 export const tpDetails: TpData = {
-  name: 'ליאור רז',
+  name: 'Harrison Ford',
   address: '5TH avenue',
-  email: 'lior@gmail.com',
+  email: 'harr@gmail.com',
   password: 'vin',
   phone: '0525381648',
-  profession: 'אינסטלציה',
+  profession: 'גינה',
   subspecialty: 'מנועים',
   image:
-    'https://media.discordapp.net/attachments/1194572187449958453/1200427786100281534/zTnySRVJBTltaSc9o7NCBZPlTrNxZpj9ok-4CYOGcfDcWQMPqeCpC1Aj_8u9w6KGF5Kgv6c-i6-DPC2028sLI8xrcAvbbUS.png',
-  experience: '2',
-  price_rating: 2,
+    'https://media.discordapp.net/attachments/1194572187449958453/1200888352652656690/spielberg-indiana-jones-5-will-likely-be-harrison-fords-last_pyt2.png',
+  experience: '5',
+  price_rating: 5,
   reliability_rating: 5,
   comments: 0,
   orders: 0,

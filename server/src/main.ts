@@ -3,13 +3,14 @@ import cors from 'cors';
 import { appRouter } from './routers/appRouter';
 // import { syncDatabase } from './sequelize';
 import { createContext } from './context';
-import { createTableUsers } from './models/user';
+import { createTableUsers, createUser, UserDetails } from './models/user';
 import { createTableAdmin, createAdmin, adminDetails } from './models/admin';
 import {
   createTableCategory,
   createCategory,
   categoryDetails,
 } from './models/category';
+import { ReviewData, ReviewDetails } from './models/reviewe';
 import { createTableTp, createTp, tpDetails } from './models/tp';
 import { createTableReview } from './models/reviewe';
 
@@ -21,7 +22,8 @@ import { createTableReview } from './models/reviewe';
 // createTableReview();
 // createAdmin(adminDetails);
 // createCategory(categoryDetails);
-createTp(tpDetails);
+//createTp(tpDetails);
+//UserDetails.forEach((user) => createUser(user));
 const server = createHTTPServer({
   middleware: cors(),
   router: appRouter,

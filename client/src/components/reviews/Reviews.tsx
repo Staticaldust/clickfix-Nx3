@@ -17,6 +17,11 @@ export const Reviews = () => {
   const selectedTpId = queryParams.get('tp_id');
   const selectedTpImage = queryParams.get('tp_image');
   const selectedTpName = queryParams.get('tp_name');
+  const selectedTpAbout = queryParams.get('about');
+  const selectedTpAvailable = queryParams.get('available');
+  const selectedTpPhone = queryParams.get('phone');
+  const selectedTpExperience = queryParams.get('experience');
+  const selectedTpEmail = queryParams.get('email');
   const selectedTpAsNumber = selectedTpId ? parseInt(selectedTpId, 10) : null;
   useEffect(() => {
     const fetchData = async () => {
@@ -52,12 +57,20 @@ export const Reviews = () => {
       <div
         style={{
           display: 'flex',
-          flexDirection: 'row', // Set the direction to horizontal
-          justifyContent: 'space-between', // Add space between the components
+          flexDirection: 'row',
+          justifyContent: 'space-between',
           margin: '30px',
         }}
       >
-        <MapCard image={selectedTpImage} name={selectedTpName} />
+        <MapCard
+          image={selectedTpImage}
+          name={selectedTpName}
+          about={selectedTpAbout}
+          phone={selectedTpPhone}
+          email={selectedTpEmail}
+          experience={selectedTpExperience}
+          // available={selectedTpAvailable}
+        />
         <Map />
       </div>
 
@@ -72,14 +85,13 @@ export const Reviews = () => {
                 {review.createdAt}
               </time>
               <button className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-                title
+                {review.user_id}
               </button>
             </div>
             <div className="group relative">
               <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
                 <button>
                   <span className="absolute inset-0" />
-                  title
                 </button>
               </h3>
               <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
@@ -96,12 +108,13 @@ export const Reviews = () => {
               )}
               <div className="text-sm leading-6">
                 <p className="font-semibold text-gray-900">
-                  <button>
-                    <span className="absolute inset-0" />
-                    שם משתמש
-                  </button>
+                  <span className="absolute inset-0" />
+                  אמינות: {review.reliability_rating}⭐
                 </p>
-                <p className="text-gray-600">תיאור משתמש</p>
+                <p className="font-semibold text-gray-900">
+                  <span className="absolute inset-0" />
+                  מחיר: {review.price_rating}⭐
+                </p>
               </div>
             </div>
           </article>

@@ -75,7 +75,7 @@ const Categories = () => {
                 </h3>
                 <p className="mt-1 text-sm text-gray-500"></p>
               </div>
-              <p className="text-sm font-medium text-gray-900">
+              <p className="text-xl font-medium text-blue-900">
                 {category.name}
               </p>
             </div>
