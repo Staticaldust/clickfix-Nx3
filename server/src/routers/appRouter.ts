@@ -54,7 +54,7 @@ export const appRouter = router({
       })
     )
     .mutation(async ({ input }) => {
-      const user = await createUser(input as UserData);
+      const user = await db.users.createUser(input as UserData);
       return {
         user,
       };
