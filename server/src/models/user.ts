@@ -7,7 +7,7 @@ export type UserData = {
   phone: string;
   password: string;
   image: string;
-  history: string[];
+  history: number[];
 };
 export interface UserType extends UserData {
   user_id: number;

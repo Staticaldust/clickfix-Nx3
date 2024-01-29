@@ -50,11 +50,11 @@ export const appRouter = router({
         phone: z.string(),
         password: z.string(),
         image: z.string(),
-        history: z.array(z.string()),
+        history: z.array(z.number()),
       })
     )
     .mutation(async ({ input }) => {
-      const user = await db.users.createUser(input as UserData);
+      const user = await createUser(input as UserData);
       return {
         user,
       };

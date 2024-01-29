@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import { useMutation } from '@apollo/client';
 import { LOGIN_MUTATION } from '../../utils/postgraphile';
@@ -16,6 +16,9 @@ export const currentUserAtom = atom({
   load: false,
 });
 const Login = () => {
+  if (localStorage.getItem('TOKEN')) {
+    return <Navigate replace to={'/categories'} />;
+  }
   const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -254,12 +257,12 @@ const Login = () => {
 
             <p className="mt-10 text-center text-sm text-gray-500">
               Not a member?{' '}
-              <a
-                href="/signup"
+              <button
+                onClick={() => navigate('/signup')}
                 className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
               >
                 Sign up
-              </a>
+              </button>
             </p>
           </div>
         </div>

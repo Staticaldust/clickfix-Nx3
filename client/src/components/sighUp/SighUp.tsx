@@ -1,29 +1,28 @@
+import React from 'react';
 import { ChangeEvent, useState } from 'react';
 import styles from './SighUp.module.css';
 import { useNavigate } from 'react-router-dom';
 import { trpc } from '../../utils/trpc';
+import { UserData } from 'server/src/models/user';
+import { useMutation } from '@apollo/client';
+import { SIGN_UP } from '../../utils/postgraphile';
 
-// const result = trpc.createUser.mutate({
-//   name: '',
-//   address: '',
-//   email: '',
-//   password: '',
-//   phone: '',
-//   image: '',
-//   history: [],
-// });
-interface SignUpType {
-  name: string | undefined;
-  address: string | undefined;
-  email: string | undefined;
-  password: string | undefined;
-  phone: string | undefined;
-  image: string | undefined;
-  history: number[] | undefined;
-}
+// interface SignUpType {
+//   name: string | undefined;
+//   address: string | undefined;
+//   email: string | undefined;
+//   password: string | undefined;
+//   phone: string | undefined;
+//   image: string | undefined;
+//   history: number[] | undefined;
+// }
 
-export function SighUp() {
-  const [details, setDetails] = useState<SignUpType>({
+export const SighUp: React.FC = () => {
+  const navigate = useNavigate();
+  const [signUpMessage, setSignUpMessage] = useState('');
+  const [load, setLoad] = useState(false);
+  const [signUpFunction, { data, loading, error }] = useMutation(SIGN_UP);
+  const [details, setDetails] = useState<UserData>({
     name: '',
     address: '',
     email: '',
@@ -33,15 +32,41 @@ export function SighUp() {
     history: [],
   });
 
-  const navigate = useNavigate();
-
-  const handelChange = (field: keyof SignUpType, value: string) => {
+  const handelChange = (field: keyof UserData, value: string) => {
     setDetails({ ...details, [field]: value });
   };
+  const handleSignUp = async () => {
+    try {
+      const result = await signUpFunction({
+        variables: {
+          input: details,
+        },
+      });
 
-  // const handelChange = (e) => {
-  //   setDetails((prev)=> ...prev, [e.target.name]: e.target.value  );
-  // };
+      if (result.errors || !result.data || !result.data.login) {
+        console.error('Registration failed:', result.errors);
+
+        setSignUpMessage('An error occurred during registration.');
+      } else if (result.data.createUser.user.email) {
+        navigate('/categories');
+      } else {
+        const errorMessage =
+          result.data.createUser.errors[0]?.message ||
+          'Invalid email or password';
+        console.error('Authentication failed:', errorMessage);
+
+        setSignUpMessage(errorMessage);
+      }
+    } catch (error) {
+      console.error('Error during רegistration:', error);
+      //   setSignUpMessage('An error occurred during egistration.');
+      // } finally {
+      //   setLoad(false);
+      // }
+    }
+    // const handelChange = (e) => {
+    //   setDetails((prev)=> ...prev, [e.target.name]: e.target.value  );
+  };
 
   console.log(details.name);
 
@@ -194,20 +219,24 @@ export function SighUp() {
               </div>
             </div>
 
-            <div>
-              <button
-                onClick={() => navigate('/login')}
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                הרשם
-              </button>
+            <div
+              onClick={() => {
+                setLoad(true);
+
+                handleSignUp();
+              }}
+              className={`flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
+                load ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+              style={{ pointerEvents: load ? 'none' : 'auto' }}
+            >
+              {load ? 'Signing in...' : 'Sign in'}
             </div>
           </form>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default SighUp;
