@@ -2,6 +2,8 @@ import { publicProcedure, router } from '../trpc';
 import { db } from '../crud/get';
 import { TRPCError } from '@trpc/server';
 import { createUser } from '../crud/get';
+import { z } from 'zod';
+import { UserData } from '../models/user';
 export const appRouter = router({
   tps: publicProcedure.query(async (opts) => {
     if (!opts.ctx.user) {
@@ -39,10 +41,22 @@ export const appRouter = router({
       users: users,
     };
   }),
-  createUser: publicProcedure.mutation(async ({ input }) => {
-    const user = await createUser(input);
-    return {
-      user,
-    };
-  }),
+  createUser: publicProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        address: z.string(),
+        email: z.string(),
+        phone: z.string(),
+        password: z.string(),
+        image: z.string(),
+        history: z.array(z.string()),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const user = await createUser(input as UserData);
+      return {
+        user,
+      };
+    }),
 });

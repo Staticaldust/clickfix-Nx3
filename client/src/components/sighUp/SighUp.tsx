@@ -1,9 +1,50 @@
+import { ChangeEvent, useState } from 'react';
 import styles from './SighUp.module.css';
 import { useNavigate } from 'react-router-dom';
-export interface SighUpProps {}
+import { trpc } from '../../utils/trpc';
 
-export function SighUp(props: SighUpProps) {
+// const result = trpc.createUser.mutate({
+//   name: '',
+//   address: '',
+//   email: '',
+//   password: '',
+//   phone: '',
+//   image: '',
+//   history: [],
+// });
+interface SignUpType {
+  name: string | undefined;
+  address: string | undefined;
+  email: string | undefined;
+  password: string | undefined;
+  phone: string | undefined;
+  image: string | undefined;
+  history: number[] | undefined;
+}
+
+export function SighUp() {
+  const [details, setDetails] = useState<SignUpType>({
+    name: '',
+    address: '',
+    email: '',
+    password: '',
+    phone: '',
+    image: '',
+    history: [],
+  });
+
   const navigate = useNavigate();
+
+  const handelChange = (field: keyof SignUpType, value: string) => {
+    setDetails({ ...details, [field]: value });
+  };
+
+  // const handelChange = (e) => {
+  //   setDetails((prev)=> ...prev, [e.target.name]: e.target.value  );
+  // };
+
+  console.log(details.name);
+
   return (
     <div>
       <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
@@ -23,7 +64,7 @@ export function SighUp(props: SighUpProps) {
             alt="Your Company"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Sign Up
+            הרשמה
           </h2>
         </div>
 
@@ -34,7 +75,7 @@ export function SighUp(props: SighUpProps) {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Name
+                שם מלא
               </label>
               <div className="mt-2">
                 <input
@@ -43,6 +84,8 @@ export function SighUp(props: SighUpProps) {
                   type="name"
                   autoComplete="name"
                   required
+                  value={details.name}
+                  onChange={(e) => handelChange('name', e.target.value)}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -52,7 +95,7 @@ export function SighUp(props: SighUpProps) {
                 htmlFor="address"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Address
+                כתובת
               </label>
               <div className="mt-2">
                 <input
@@ -61,6 +104,8 @@ export function SighUp(props: SighUpProps) {
                   type="address"
                   autoComplete="address"
                   required
+                  value={details.address}
+                  onChange={(e) => handelChange('address', e.target.value)}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -70,7 +115,7 @@ export function SighUp(props: SighUpProps) {
                 htmlFor="email"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Email address
+                דוא"ל{' '}
               </label>
               <div className="mt-2">
                 <input
@@ -79,6 +124,8 @@ export function SighUp(props: SighUpProps) {
                   type="email"
                   autoComplete="email"
                   required
+                  value={details.email}
+                  onChange={(e) => handelChange('email', e.target.value)}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -90,7 +137,7 @@ export function SighUp(props: SighUpProps) {
                   htmlFor="password"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Password
+                  סיסמה
                 </label>
               </div>
               <div className="mt-2">
@@ -100,6 +147,8 @@ export function SighUp(props: SighUpProps) {
                   type="password"
                   autoComplete="current-password"
                   required
+                  value={details.password}
+                  onChange={(e) => handelChange('password', e.target.value)}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -109,7 +158,7 @@ export function SighUp(props: SighUpProps) {
                 htmlFor="phone"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Phone
+                טלפון
               </label>
               <div className="mt-2">
                 <input
@@ -118,6 +167,8 @@ export function SighUp(props: SighUpProps) {
                   type="phone"
                   autoComplete="phone"
                   required
+                  value={details.phone}
+                  onChange={(e) => handelChange('phone', e.target.value)}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -127,7 +178,7 @@ export function SighUp(props: SighUpProps) {
                 htmlFor="client"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Client
+                קישור תמונה
               </label>
               <div className="mt-2">
                 <input
@@ -136,6 +187,8 @@ export function SighUp(props: SighUpProps) {
                   type="client"
                   autoComplete="client"
                   required
+                  value={details.image}
+                  onChange={(e) => handelChange('image', e.target.value)}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -147,7 +200,7 @@ export function SighUp(props: SighUpProps) {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign Up
+                הרשם
               </button>
             </div>
           </form>
