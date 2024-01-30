@@ -1,7 +1,13 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+.containerWrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6px 24px 12px;
+}
+
+@media (min-width: 768px) {
+  .containerWrapper {
+    padding: 12px 32px 24px;
+  }
+}
